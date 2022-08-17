@@ -16,9 +16,6 @@ globals.set(
 from . import sysinfo
 sysinfo.run()
 
-from . import themes
-themes.run()
-
 
 def get_result():
     result_dict = globals.get(["result"])[0]

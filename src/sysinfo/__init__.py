@@ -11,6 +11,7 @@ from .. import globals
 from .board_name import board_name
 from .package_count import result as package_count
 from .desktop_environment import de_name
+from .system_theme import theme, icons, cursor
 
 
 def run():
@@ -27,5 +28,8 @@ def run():
         "Memory": memory,
         "Packages": package_count,
         "DE": de_name,
+        "Theme": theme,
+        "Icons": icons,
+        "Cursor": cursor,
     }
     globals.set({"result": result_new})

@@ -1,9 +1,8 @@
-from psutil import Process
+from ..tools import get_parents
 
 terminal = ""
 
-for parents in Process().parents():
-    name = parents.name()
+for name in get_parents():
     if not (
         name.endswith("sh")
         or name.endswith("shell")
