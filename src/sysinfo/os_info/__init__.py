@@ -5,7 +5,7 @@ sys_name = platform_info["name"]
 sys_arch = platform_info["arch"]
 
 if sys_name == "Linux":
-    from ..osinfo.linux import info
+    from .linux import info
 elif sys_name == "Darwin":
     info = ""
 

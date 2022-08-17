@@ -1,14 +1,15 @@
 from .username import username
 from .hostname import hostname
 from .kernel import kernel
-from .osinfo import osinfo
+from .os_info import osinfo
 from .uptime import uptime
 from .terminal import terminal
-from .cpuinfo import cpu_info
+from .cpu_info import cpu_info
 from .shell import shell
 from .memory import memory
 from .. import globals
-from .boardname import board_name
+from .board_name import board_name
+from .package_count import result as package_count
 
 
 def run():
@@ -23,5 +24,6 @@ def run():
         "CPU": cpu_info,
         "Shell": shell,
         "Memory": memory,
+        "Packages": package_count,
     }
     globals.set({"result": result_new})
