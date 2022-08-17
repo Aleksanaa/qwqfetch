@@ -12,7 +12,7 @@ else:
 
 def process_time(seconds):
     time_str = ""
-    time_format = {"day": 86400, "hour": 3600, "minute": 60}
+    time_format = {"day": 86400, "hour": 3600, "min": 60}
     for time_type in time_format.keys():
         count = str(int(seconds / time_format[time_type]))
         if count == "1":

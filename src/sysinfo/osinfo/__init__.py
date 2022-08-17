@@ -1,13 +1,12 @@
-from platform import platform
 from ... import globals
 
 platform_info = globals.get(["platform"])[0]
-sysname = platform_info["name"]
-sysarch = platform_info["arch"]
+sys_name = platform_info["name"]
+sys_arch = platform_info["arch"]
 
-if sysname == "Linux":
+if sys_name == "Linux":
     from ..osinfo.linux import info
-elif sysname == "Darwin":
+elif sys_name == "Darwin":
     info = ""
 
-osinfo = "%s %s" % (info, sysarch)
+osinfo = "%s %s" % (info, sys_arch)

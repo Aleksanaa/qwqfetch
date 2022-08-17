@@ -2,11 +2,11 @@ from platform import release
 from distro import version
 from .. import globals
 
-sysname = globals.get(["platform"])[0]['name']
+sys_name = globals.get(["platform"])[0]['name']
 
-if sysname == "Linux":
+if sys_name == "Linux":
     kernel = release()
-elif sysname == "Darwin":
+elif sys_name == "Darwin":
     kernel = "Darwin %s" %version()
 else:
     kernel = ""

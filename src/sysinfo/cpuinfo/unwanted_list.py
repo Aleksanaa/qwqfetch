@@ -1,0 +1,3 @@
+unwanted = [
+    "with Radeon Graphics"
+]

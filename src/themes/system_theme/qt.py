@@ -3,7 +3,7 @@ from .base import config, home
 
 
 def read_KDE_Qt() -> str:
-    Qt = {}
+    qt = {}
     filepaths = ["%s/.config/" % home]
     filename = "kdeglobals"
     commands = ["kf5-config", "kde4-config", "kde-config"]
@@ -17,10 +17,10 @@ def read_KDE_Qt() -> str:
         if os.path.exists(file):
             try:
                 config.read(file)
-                Qt["theme"] = config["KDE"]["widgetStyle"]
-                Qt["icons"] = config["Icons"]["Theme"]
+                qt["theme"] = config["KDE"]["widgetStyle"]
+                qt["icons"] = config["Icons"]["Theme"]
             except:
                 pass
-    return Qt
+    return qt
 
 qt = read_KDE_Qt()
