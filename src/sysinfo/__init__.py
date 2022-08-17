@@ -10,6 +10,7 @@ from .memory import memory
 from .. import globals
 from .board_name import board_name
 from .package_count import result as package_count
+from .desktop_environment import de_name
 
 
 def run():
@@ -25,5 +26,6 @@ def run():
         "Shell": shell,
         "Memory": memory,
         "Packages": package_count,
+        "DE": de_name,
     }
     globals.set({"result": result_new})

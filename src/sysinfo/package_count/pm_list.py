@@ -1,3 +1,5 @@
+# Do not use unix pipe!!!
+
 package_managers = [
     {"name": "pacman", "command": "pacman -Qq --color never"},
     {

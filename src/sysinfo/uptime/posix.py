@@ -1,4 +1,1 @@
-import psutil
-import time
-
-uptime_seconds = int(time.time() - psutil.boot_time())
+uptime_seconds = int(float(open('/proc/uptime').read().split()[0]))
