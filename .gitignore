@@ -124,3 +124,5 @@ dmypy.json
 cython_debug/
 
 /ptime.exe
+
+*.backup
