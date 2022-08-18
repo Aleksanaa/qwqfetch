@@ -1,4 +1,3 @@
-from src.sysinfo import cpu_info
 from ...tools import parse_proc
 
 
