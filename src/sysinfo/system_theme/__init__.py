@@ -1,12 +1,7 @@
-from .gtk2 import gtk2
-from .gtk3 import gtk3
-from .qt import qt
 import os
 
-theme_dict = {"GTK2": gtk2, "GTK3": gtk3, "Qt": qt}
 
-
-def read_cursor():
+def read_cursor(theme_dict):
     env = os.getenv("XCURSOR_THEME")
     if len(env) != 0:
         return env
@@ -16,7 +11,8 @@ def read_cursor():
             return result
     return ""
 
-def read(theme_type):
+
+def read(theme_type, theme_dict):
     result = ""
     result_dict = {}
     for t in theme_dict.keys():
@@ -29,14 +25,27 @@ def read(theme_type):
         same_list = [i for i in result_dict if result_dict[i] == next_value]
         tag = "/".join(same_list)
         [result_dict.pop(key) for key in same_list]
-        result += "%s [%s] " %(next_value,tag)
+        result += "%s [%s] " % (next_value, tag)
     return pretty(result.strip())
 
+
 def pretty(result):
-    replace_dict = {'GTK2/GTK3':"GTK2/3"}
-    for key,val in replace_dict.items():
-        result = result.replace(key,val)
+    replace_dict = {"GTK2/GTK3": "GTK2/3"}
+    for key, val in replace_dict.items():
+        result = result.replace(key, val)
     return result.strip()
 
+
 def get(result):
-    result.update({'Theme':read('theme'),'Icons':read('icons'),'Cursor':read_cursor()})
+    from .gtk2 import gtk2
+    from .gtk3 import gtk3
+    from .qt import qt
+
+    theme_dict = {"GTK2": gtk2, "GTK3": gtk3, "Qt": qt}
+    result.update(
+        {
+            "Theme": read("theme", theme_dict),
+            "Icons": read("icons", theme_dict),
+            "Cursor": read_cursor(theme_dict),
+        }
+    )
