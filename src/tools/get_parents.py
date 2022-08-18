@@ -4,7 +4,7 @@ from . import parse_proc
 
 
 def get_info(id):
-    info_dict = parse_proc("/proc/%s/status" % id)[0]
+    info_dict = parse_proc("/proc/{}/status".format(id))[0]
     name = info_dict["Name"]
     parent = info_dict["PPid"]
     return name, parent

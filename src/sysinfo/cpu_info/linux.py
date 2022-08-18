@@ -1,3 +1,4 @@
+from src.sysinfo import cpu_info
 from ...tools import parse_proc
 
 
@@ -36,4 +37,4 @@ def form_output():
     return result
 
 
-result = form_output()
+cpu_info_dict = form_output()

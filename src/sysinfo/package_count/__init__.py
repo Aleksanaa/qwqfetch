@@ -12,25 +12,26 @@ def check_command_exist(command):
             return True
     return False
 
-
+def get(result):
 # get the encoding of current terminal
-encoding = stdout.encoding
+    encoding = stdout.encoding
 
-packages_list = {}
+    packages_list = {}
 
-for pm in package_managers:
-    if "command" in pm.keys():
-        command = pm["command"]
-        if check_command_exist(command):
-            command_result = subprocess.run(command.split(), capture_output=True)
-            if command_result.returncode == 0:
-                count = str(command_result.stdout,encoding).count('\n')
-                if count != 0:
-                    packages_list[pm["name"]] = count
+    for pm in package_managers:
+        if "command" in pm.keys():
+            command = pm["command"]
+            if check_command_exist(command):
+                command_result = subprocess.run(command.split(), capture_output=True)
+                if command_result.returncode == 0:
+                    count = str(command_result.stdout,encoding).count('\n')
+                    if count != 0:
+                        packages_list[pm["name"]] = count
 
-result = ""
+    packages_str = ""
 
-for pm, count in packages_list.items():
-    result += "%d (%s), " % (count, pm)
+    for pm, count in packages_list.items():
+        packages_str += "%d (%s), " % (count, pm)
 
-result = result.strip(", ")
+    packages_str = packages_str.strip(", ")
+    result['Packages'] = packages_str

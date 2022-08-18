@@ -1,3 +1,5 @@
 from os import getlogin
 
-username = getlogin()
+
+def get(result):
+    result["USERNAME"] = getlogin()

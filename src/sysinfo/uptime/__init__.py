@@ -2,14 +2,6 @@ from ... import globals
 
 sys_type = globals.get(["platform"])[0]["type"]
 
-if sys_type == "posix":
-    from .posix import uptime_seconds
-elif sys_type == "nt":
-    from .windows import uptime_seconds
-else:
-    uptime_seconds = 0
-
-
 def process_time(seconds):
     time_str = ""
     time_format = {"day": 86400, "hour": 3600, "min": 60}
@@ -22,5 +14,11 @@ def process_time(seconds):
         seconds = seconds % time_format[time_type]
     return time_str.strip(", ")
 
-
-uptime = process_time(uptime_seconds)
+def get(result):
+    if sys_type == "posix":
+        from .posix import uptime_seconds
+    elif sys_type == "nt":
+        from .windows import uptime_seconds
+    else:
+        uptime_seconds = 0
+    result['Uptime'] = process_time(uptime_seconds)

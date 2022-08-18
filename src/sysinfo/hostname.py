@@ -1,3 +1,5 @@
 from platform import node
 
-hostname = node()
+
+def get(result):
+    result["HOSTNAME"] = node()

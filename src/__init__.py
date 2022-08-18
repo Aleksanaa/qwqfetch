@@ -14,18 +14,19 @@ globals.set(
 )
 
 from . import sysinfo
+
 sysinfo.run()
 
 
 def get_result():
     result_dict = globals.get(["result"])[0]
-    result = "%s@%s\n" % (result_dict.pop("USERNAME"), result_dict.pop("HOSTNAME"))
+    result = "{}@{}\n".format(result_dict.pop("USERNAME"), result_dict.pop("HOSTNAME"))
     result += "-" * (len(result) - 1) + "\n"
     for key in default_result:
         if key in result_dict.keys():
             val = result_dict[key].strip()
             if isinstance(val, str) and val != "":
-                result += "%s: %s\n" % (key, val)
+                result += "{}: {}\n".format(key, val)
     return result
 
 

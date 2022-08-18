@@ -38,6 +38,5 @@ def pretty(result):
         result = result.replace(key,val)
     return result.strip()
 
-theme = read('theme')
-icons = read('icons')
-cursor = read_cursor()
+def get(result):
+    result.update({'Theme':read('theme'),'Icons':read('icons'),'Cursor':read_cursor()})
