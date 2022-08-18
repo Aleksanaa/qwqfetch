@@ -1,4 +1,4 @@
-from ctypes.windll import kernel32 as lib  # type: ignore
+from ctypes import windll 
 
-uptime = lib.GetTickCount64()
+uptime = windll.kernel32.GetTickCount64()
 uptime_seconds = int(str(uptime)[:-3])

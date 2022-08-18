@@ -5,6 +5,8 @@ def get(result):
 
     if sys_name == "Linux":
         from .linux import memory_used, memory_all
+    elif sys_name == "Windows":
+        from .windows import memory_used, memory_all
     else:
         pass
 

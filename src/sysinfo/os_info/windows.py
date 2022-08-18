@@ -1,3 +1,3 @@
-import platform
+from ...tools import get_wmic
 
-info = platform.platform().replace('-',' ')
+info = get_wmic('os get name').split('|')[0]

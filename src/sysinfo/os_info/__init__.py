@@ -10,5 +10,9 @@ def get(result):
         from .linux import info
     elif sys_name == "Darwin":
         info = ""
+    elif sys_name == "Windows":
+        from .windows import info
+    else:
+        info = ""
 
     result["OS"] = "%s %s" % (info, sys_arch)
