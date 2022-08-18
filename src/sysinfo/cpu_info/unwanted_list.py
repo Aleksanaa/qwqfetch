@@ -1,3 +1,5 @@
 unwanted = [
-    "with Radeon Graphics"
+    "with Radeon Graphics",
+    "(TM)",
+    "(R)"
 ]

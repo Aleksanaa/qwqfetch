@@ -1,14 +1,26 @@
 from .. import globals
 from importlib import import_module
-from pathlib import Path
 from threading import Thread
 
 functions_list = [
-    getattr(import_module(f".{f.stem}", __package__), "get")
-    for f in Path(__file__).parent.iterdir()
-    if "__" not in f.stem
+    getattr(import_module(".%s" % package, __package__), "get")
+    for package in [
+        "board_name",
+        "cpu_info",
+        "desktop_environment",
+        "gpu_info",
+        "memory",
+        "os_info",
+        "package_count",
+        "resolution",
+        "shell",
+        "uptime",
+        "hostname",
+        "kernel",
+        "username",
+    ]
 ]
-del import_module, Path
+del import_module
 
 
 def run():

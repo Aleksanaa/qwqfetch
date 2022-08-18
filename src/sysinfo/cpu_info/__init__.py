@@ -7,9 +7,11 @@ sys_arch = platform_info["arch"]
 
 def get(result):
     if sys_name == "Linux":
-        from .linux import cpu_info_dict
+        from .linux import cpu_info_list
+    elif sys_name == "Windows":
+        from .windows import cpu_info_list
     else:
-        cpu_info_dict = None
+        cpu_info_list = None
 
     cpu_info = ""
 
@@ -21,8 +23,8 @@ def get(result):
         return name
 
 
-    if cpu_info_dict:
-        for cpu in cpu_info_dict:
+    if cpu_info_list:
+        for cpu in cpu_info_list:
             if cpu["core"] != "1":
                 cpu_info += "%s (%s)" % (strip(cpu["name"]), cpu["core"])
             else:

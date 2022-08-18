@@ -37,4 +37,4 @@ def form_output():
     return result
 
 
-cpu_info_dict = form_output()
+cpu_info_list = form_output()
