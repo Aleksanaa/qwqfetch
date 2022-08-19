@@ -9,6 +9,8 @@ def get(result):
     #    from .linux import gpu_info
     if sys_name == "Windows":
         from .windows import gpu_info
+    elif sys_name == "Linux":
+        from .linux import gpu_info
     else:
         gpu_info = ""
 
