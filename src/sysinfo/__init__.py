@@ -25,8 +25,6 @@ functions_list = [
         "terminal",
     ]
 ]
-del import_module
-
 
 def run():
     output_slot = [{}] * len(functions_list)
