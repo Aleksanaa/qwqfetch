@@ -6,9 +6,12 @@ def read_cursor(theme_dict):
     if env and len(env) != 0:
         return env
     for gtk in ["GTK2", "GTK3"]:
-        result = theme_dict[gtk]["cursor"]
-        if result != 0:
-            return result
+        try:
+            result = theme_dict[gtk]["cursor"]
+            if result != 0:
+                return result
+        except KeyError:
+            pass
     return ""
 
 
