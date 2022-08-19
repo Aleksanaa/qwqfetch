@@ -3,7 +3,6 @@ def get_from_lspci():
         from os import popen
 
         lspci = popen("lspci -mm").readlines()
-        gpu_list = []
         for line in lspci:
             if '"VGA compatible controller"' in line:
                 line_list = line.split('" "')
@@ -21,9 +20,22 @@ def get_from_lspci():
         return ""
 
 
-gpu_info = ""
+def get_from_glxinfo():
+    try:
+        from os import popen
 
-for method in [get_from_lspci]:
+        glxinfo = popen("glxinfo -B").readlines()
+        for line in glxinfo:
+            if "Device: " in line:
+                name = line.split(": ", 1)[1].split(" (", 1)[0]
+                return name
+        return ""
+    except IndexError:
+        return ""
+
+
+gpu_info = ""
+for method in [get_from_lspci, get_from_glxinfo]:
     result = method()
     if result != "":
         gpu_info = result
