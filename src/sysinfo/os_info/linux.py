@@ -21,10 +21,10 @@ def get_from_distro():
                 "codename": distro.codename(),
             }
         )
-        if info_dict["version"] == "rolling":
+        if info_dict["version"] == "rolling" or "":
             info_dict["no_version"] = True
             info_dict["version"] = ""
-        if info_dict["codename"] == "n/a":
+        if info_dict["codename"] == "n/a" or "":
             info_dict["codename"] = ""
     except ImportError:
         pass
@@ -35,7 +35,7 @@ def get_from_os_release():
         os_release = open("/etc/os-release").readlines()
         for key in os_release:
             if "PRETTY_NAME" in key:
-                full_name = key.split("=", 1)[1].strip('" ')
+                full_name = key.split("=", 1)[1].strip('" \n')
                 if full_name != "":
                     info_dict["full_name"] = full_name
                     break
