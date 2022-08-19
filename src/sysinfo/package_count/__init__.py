@@ -25,7 +25,7 @@ def get(result):
                 command_result = subprocess.run(command.split(), capture_output=True)
                 if command_result.returncode == 0:
                     count = str(command_result.stdout,encoding).count('\n')
-                    if count != 0:
+                    if count != "0":
                         packages_list[pm["name"]] = count
 
     packages_str = ""
