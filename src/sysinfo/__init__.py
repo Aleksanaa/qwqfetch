@@ -4,7 +4,7 @@ from importlib import import_module
 use_threading = True
 
 functions_list = [
-    getattr(import_module(".%s" % package, __package__), "get")
+    getattr(import_module(".%s" % package, package=__package__), "get")
     # do not use path here.
     # or zipapp and pyinstaller won't work.
     for package in [
@@ -25,6 +25,7 @@ functions_list = [
         "terminal",
     ]
 ]
+
 
 def run():
     output_slot = [{}] * len(functions_list)
