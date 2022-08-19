@@ -1,9 +1,13 @@
-info_dict = {"name": "", "version": "", "codename": ""}
+info_dict = {
+    "name": "",
+    "version": "",
+    "codename": "",
+    "full_name": "",
+    # As you can see this is for Arch Linux!
+    "no_version": False,
+}
 
-# As you can see this is for Arch Linux!
-no_version = False
-
-full_name = ""
+key_order = ["name", "version", "codename"]
 
 
 def get_from_distro():
@@ -17,8 +21,11 @@ def get_from_distro():
                 "codename": distro.codename(),
             }
         )
-        if distro.version() == "":
-            no_version = True
+        if info_dict["version"] == "rolling":
+            info_dict["no_version"] = True
+            info_dict["version"] = ""
+        if info_dict["codename"] == "n/a":
+            info_dict["codename"] = ""
     except ImportError:
         pass
 
@@ -30,6 +37,7 @@ def get_from_os_release():
             if "PRETTY_NAME" in key:
                 full_name = key.split("=", 1)[1].strip('" ')
                 if full_name != "":
+                    info_dict["full_name"] = full_name
                     break
             elif "NAME" in key:
                 info_dict["name"] = key.split("=")[1].strip('" ')
@@ -38,7 +46,7 @@ def get_from_os_release():
             elif "VERSION_CODENAME" in key:
                 info_dict["codename"] = key.split("=")[1].strip()
             elif "BUILD_ID=rolling" in key:
-                no_version = True
+                info_dict["no_version"] = True
 
     except (FileNotFoundError, IndexError):
         pass
@@ -53,11 +61,11 @@ def get_from_lsb_release():
             if "Description:" in key:
                 name = key.split(":")[1].strip()
                 if name != "n/a":
-                    full_name = name
+                    info_dict["full_name"] = name
             if "Release:" in key:
                 version = key.split(":")[1].strip()
                 if version == "rolling":
-                    no_version = True
+                    info_dict["no_version"] = True
                 else:
                     info_dict["version"] = version
 
@@ -70,9 +78,9 @@ def get_from_lsb_release():
 
 for method in [get_from_distro, get_from_os_release, get_from_lsb_release]:
     if (
-        (full_name != "")
-        or (no_version and info_dict["name"] != "")
-        or ("" not in info_dict.values())
+        (info_dict["full_name"] != "")
+        or (info_dict["no_version"] and info_dict["name"] != "")
+        or ("" not in [info_dict[key] for key in key_order])
     ):
         break
     method()
@@ -80,10 +88,10 @@ for method in [get_from_distro, get_from_os_release, get_from_lsb_release]:
 if info_dict["name"] == "":
     info_dict["name"] = "Unknown Linux"
 
-if full_name != "":
-    info = full_name
+if info_dict["full_name"] != "":
+    info = info_dict["full_name"]
 else:
     info = ""
-    for key in ["name", "version", "codename"]:  # get correct output order
+    for key in key_order:  # get correct output order
         info = "{} {}".format(info, info_dict[key])
         info = info.strip()
