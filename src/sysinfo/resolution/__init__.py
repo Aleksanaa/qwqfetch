@@ -8,6 +8,8 @@ def get(result):
     #    from .linux import resolution
     if sys_name == "Windows":
         from .windows import resolution
+    elif sys_name == "Linux":
+        from .linux import resolution
     else:
         resolution = ""
 
