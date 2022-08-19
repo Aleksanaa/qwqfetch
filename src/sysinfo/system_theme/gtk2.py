@@ -5,7 +5,7 @@ from .base import config, home
 def read_GTK2() -> str:
     gtk2 = {}
     env = os.getenv("GTK2_RC_FILES")
-    if len(env) != 0:
+    if env and len(env) != 0:
         files = env.split(":")
     else:
         files = ["%s/.gtkrc-2.0" % home]

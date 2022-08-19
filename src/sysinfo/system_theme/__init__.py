@@ -3,7 +3,7 @@ import os
 
 def read_cursor(theme_dict):
     env = os.getenv("XCURSOR_THEME")
-    if len(env) != 0:
+    if env and len(env) != 0:
         return env
     for gtk in ["GTK2", "GTK3"]:
         result = theme_dict[gtk]["cursor"]
