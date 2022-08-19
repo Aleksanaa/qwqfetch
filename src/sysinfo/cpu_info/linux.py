@@ -24,16 +24,13 @@ def get_cpu_freq(index):
 
 def form_output():
     cpu_raw_info = strip_cpu_info(parse_proc("/proc/cpuinfo"))
-    result = []
-    for cpu in cpu_raw_info:
-        result.append(
-            {
-                "name": cpu["model name"],
-                "core": cpu["siblings"],
-                "freq": get_cpu_freq(cpu["processor"]),
-            }
-        )
+    result = {
+        "name": cpu_raw_info[0]["model name"],
+        "core": cpu_raw_info[0]["siblings"],
+        "freq": get_cpu_freq(cpu_raw_info[0]["processor"]),
+        "count": str(len(cpu_raw_info)),
+    }
     return result
 
 
-cpu_info_list = form_output()
+cpu_info_dict = form_output()
