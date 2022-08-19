@@ -22,6 +22,7 @@ functions_list = [
         "kernel",
         "username",
         "system_theme",
+        "terminal",
     ]
 ]
 del import_module
