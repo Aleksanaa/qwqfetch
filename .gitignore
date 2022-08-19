@@ -126,3 +126,5 @@ cython_debug/
 /ptime.exe
 
 *.backup
+
+.vscode/
