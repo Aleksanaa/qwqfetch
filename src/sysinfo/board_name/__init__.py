@@ -1,4 +1,3 @@
-from cmath import inf
 from ... import globals
 
 sys_name = globals.get(["platform"])[0]["name"]

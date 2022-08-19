@@ -1,4 +1,3 @@
-from src.sysinfo import resolution
 from ...tools import get_wmic
 
 resolution_horizontal = get_wmic(

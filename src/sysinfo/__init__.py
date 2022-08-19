@@ -1,7 +1,7 @@
 from .. import globals
 from importlib import import_module
 
-use_threading = True
+use_threading = False
 
 functions_list = [
     getattr(import_module(".%s" % package, __package__), "get")

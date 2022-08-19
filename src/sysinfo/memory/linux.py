@@ -1,4 +1,3 @@
-from distutils.log import info
 from ...tools import parse_proc
 
 info_dict = parse_proc("/proc/meminfo")[0]
