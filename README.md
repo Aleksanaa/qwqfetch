@@ -3,9 +3,9 @@
 
 Hi!
 
-This is an replacement of neofetch in [hyfetch](https://github.com/hykilpikonna/hyfetch), written in python. It will serve as a module for output system information.
+This is a replacement of neofetch in [hyfetch](https://github.com/hykilpikonna/hyfetch), written in python. It will serve as a module for output system information.
 
-Now it is still in its early state, several items has not been work on, and it may (very possibly) display weird information on your system, or even simply throw an exception.
+Now it is still in its early state, several items has not been worked on, and it may (very possibly) display weird information on your system, or even simply throw an exception.
 
 This is the output on my Arch Linux:
 ```
