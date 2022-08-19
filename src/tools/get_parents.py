@@ -1,4 +1,3 @@
-import imp
 from os import getpid
 from . import parse_proc
 
