@@ -14,15 +14,19 @@ aleksana@Aleksana-laptop
 OS: Arch Linux x86_64
 Host: LENOVO LNVNB161216
 Kernel: 5.19.1-zen1-1.1-zen
-Uptime: 15 hours, 33 mins
-Packages: 1129 (pacman), 11 (flatpak)
+Uptime: 1 day, 7 hours, 21 mins
+Packages: 1120 (pacman), 11 (flatpak)
 Shell: zsh 5.9
+Resolution: 2240x1400
 DE: Plasma 5.25.4 [KF5 5.97.0] [Qt 5.15.5]
 Theme: Breeze [GTK2/3/Qt]
 Icons: Papirus-Dark [GTK2/3/Qt]
 Cursor: breeze_cursors
+Terminal: konsole
+Terminal Font: SFMono Nerd Font Mono 11
 CPU: AMD Ryzen 7 5800H (16) @ 3.200GHz
-Memory: 8311MiB / 13816MiB
+GPU: AMD ATI Cezanne
+Memory: 6124MiB / 13816MiB
 ```
 
 And also windows (without the need of MinGW):
