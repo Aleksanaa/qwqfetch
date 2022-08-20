@@ -28,16 +28,13 @@ def get(result):
     # I'll change this as soon as possible.
     if cpu_info_dict != {}:
         if cpu_info_dict["count"] != "1" or "":
-            cpu_info += "{}x ".format(cpu_info_dict["count"])
+            cpu_info += f"{cpu_info_dict['count']}x "
         if cpu_info_dict["core"] != "1":
-            cpu_info += "{} ({})".format(
-                strip(cpu_info_dict["name"]),
-                cpu_info_dict["core"],
-            )
+            cpu_info += f"{strip(cpu_info_dict['name'])} ({cpu_info_dict['core']})"
         else:
             cpu_info += strip(cpu_info_dict["name"])
         if cpu_info_dict["freq"] != "":
-            cpu_info += " @ {}".format(cpu_info_dict["freq"])
+            cpu_info += f" @ {cpu_info_dict['freq']}"
 
     cpu_info = cpu_info.strip()
     result["CPU"] = cpu_info

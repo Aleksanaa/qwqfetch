@@ -1,16 +1,16 @@
 from os import path
 from .base import config, home
-from ...tools.command import run_command
+from ...tools.command import RunCommand
 
 
-def read_KDE_Qt() -> str:
+def read_kde_qt() -> dict[str, str]:
     qt = {}
-    filepaths = ["%s/.config/" % home]
+    filepaths = [f"{home}/.config/"]
     filename = "kdeglobals"
     commands = ["kf5-config", "kde4-config", "kde-config"]
     for command in commands:
-        filepaths_raw = run_command("%s --path config" % command).read()
-        if filepaths_raw !="":
+        filepaths_raw = RunCommand(f"{command} --path config").read()
+        if filepaths_raw != "":
             filepaths = filepaths_raw.strip().split(":")
         break
     filepaths.reverse()
@@ -26,4 +26,4 @@ def read_KDE_Qt() -> str:
     return qt
 
 
-qt = read_KDE_Qt()
+qt = read_kde_qt()

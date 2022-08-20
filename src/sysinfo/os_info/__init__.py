@@ -15,4 +15,4 @@ def get(result):
     else:
         info = ""
 
-    result["OS"] = "%s %s" % (info, sys_arch)
+    result["OS"] = f"{info} {sys_arch}"

@@ -14,7 +14,7 @@ def get_from_lspci():
                 else:
                     manufacturer = line_list[1]
                 name = line_list[2].split('"')[0]
-                return ("{} {}".format(manufacturer, name)).strip()
+                return f"{manufacturer} {name}".strip()
         return ""
     except IndexError:
         return ""
@@ -22,9 +22,9 @@ def get_from_lspci():
 
 def get_from_glxinfo():
     try:
-        from ...tools.command import run_command
+        from ...tools.command import RunCommand
 
-        glxinfo = run_command("glxinfo -B").readlines()
+        glxinfo = RunCommand("glxinfo -B").readlines()
         for line in glxinfo:
             if "Device: " in line:
                 name = line.split(": ", 1)[1].split(" (", 1)[0]

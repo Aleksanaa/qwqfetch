@@ -1,8 +1,8 @@
-from ...tools.command import run_command
+from ...tools.command import RunCommand
 
 def get_from_xrandr():
     try:
-        xrandr = run_command("xrandr --nograb --current").readlines()
+        xrandr = RunCommand("xrandr --nograb --current").readlines()
         for line in xrandr:
             if "minimum" and "current" and "maximum" in line:
                 resolution = line.split("current", 1)[1].split(",", 1)[0]
@@ -14,7 +14,7 @@ def get_from_xrandr():
 
 def get_from_xwininfo():
     try:
-        xwininfo = run_command("xwininfo -root").readlines()
+        xwininfo = RunCommand("xwininfo -root").readlines()
         width, height = "", ""
         for line in xwininfo:
             if "Width:" in line:
@@ -22,7 +22,7 @@ def get_from_xwininfo():
             elif "Height:" in line:
                 height = line.split(":")[1].strip()
             if width != "" and height != "":
-                return "{}x{}".format(width, height)
+                return f"{width}x{height}"
     except (AttributeError, TypeError):
         pass
     return ""

@@ -3,7 +3,7 @@ import subprocess
 from shlex import split
 
 
-class run_command:
+class RunCommand:
     def __init__(self, command: str, error=False):
         encoding = getpreferredencoding()
         try:

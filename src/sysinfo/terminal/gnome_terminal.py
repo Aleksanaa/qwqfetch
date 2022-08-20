@@ -1,19 +1,13 @@
-from ...tools.command import run_command
+from ...tools.command import RunCommand
 
 
 def get_font():
     default_profile = (
-        run_command("gsettings get org.gnome.Terminal.ProfilesList default")
-        .read()
-        .strip("' \n")
+        RunCommand("gsettings get org.gnome.Terminal.ProfilesList default")
+        .read().strip("' \n")
     )
     font = (
-        run_command(
-            "gsettings get org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:{}/ font".format(
-                default_profile
-            )
-        )
-        .read()
-        .strip("' \n")
+        RunCommand(f"gsettings get org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:{default_profile}/ font")
+        .read().strip("' \n")
     )
     return font

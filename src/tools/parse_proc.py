@@ -1,11 +1,13 @@
-def parse_proc_info(filepath,needed=[]):
+from __future__ import annotations
+
+from pathlib import Path
+
+
+def parse_proc_info(filepath: str | Path) -> list[dict[str, str]]:
     info_list = []
-    for raw_info_list in open(filepath).read().split("\n\n"):
-        info_dict = {}
-        for per_info in raw_info_list.split("\n"):
-            pair = per_info.split(":", 1)
-            if len(pair) == 2:
-                info_dict[pair[0].strip("\t ")] = pair[1].strip()
-        if info_dict != {}:
-            info_list.append(info_dict)
+    for section in Path(filepath).read_text().split('\n\n'):
+        info: list[list[str]] = [ln.split(':', 1) for ln in section.split('\n')]
+        info: dict[str, str] = {s[0].strip('\t '): s[1].strip() for s in info if len(s) == 2}
+        if info:
+            info_list.append(info)
     return info_list

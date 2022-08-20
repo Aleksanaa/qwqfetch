@@ -9,6 +9,5 @@ def get(result):
     else:
         shell_name, shell_ver = "", ""
 
-    shell = "%s %s" % (shell_name, shell_ver)
-    shell = shell.strip()
+    shell = f"{shell_name} {shell_ver}".strip()
     result["Shell"] = shell

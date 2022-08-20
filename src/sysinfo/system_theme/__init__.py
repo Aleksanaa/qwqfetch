@@ -28,7 +28,7 @@ def read(theme_type, theme_dict):
         same_list = [i for i in result_dict if result_dict[i] == next_value]
         tag = "/".join(same_list)
         [result_dict.pop(key) for key in same_list]
-        result += "%s [%s] " % (next_value, tag)
+        result += f"{next_value} [{tag}] "
     return pretty(result.strip())
 
 

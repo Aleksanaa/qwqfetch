@@ -4,7 +4,7 @@ from importlib import import_module
 use_threading = True
 
 functions_list = [
-    getattr(import_module(".%s" % package, package=__package__), "get")
+    getattr(import_module(f".{package}", package=__package__), "get")
     # do not use path here.
     # or zipapp and pyinstaller won't work.
     for package in [
@@ -29,7 +29,8 @@ functions_list = [
 
 def run():
     output_slot = [{}] * len(functions_list)
-    if use_threading == True:
+
+    if use_threading:
         thread_list = []
 
         from threading import Thread

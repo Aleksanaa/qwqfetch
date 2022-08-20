@@ -21,7 +21,7 @@ def get(result):
 
         name = name.strip("-").replace("-", "_").replace(" ", "").lower()
         get_font = getattr(
-            import_module(".{}".format(name), package=__package__), "get_font"
+            import_module(f".{name}", package=__package__), "get_font"
         )
 
         result["Terminal Font"] = get_font().strip()

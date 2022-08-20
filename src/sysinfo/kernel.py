@@ -8,10 +8,10 @@ def get(result):
         kernel = release()
     elif sys_name == "Darwin":
         from distro import version
-        kernel = "Darwin %s" % version()
+        kernel = f"Darwin {version()}"
     elif sys_name == "Windows":
         from ..tools import get_wmic
-        kernel = "NT %s" %get_wmic('os get version')
+        kernel = f"NT {get_wmic('os get version')}"
     else:
         kernel = ""
     result["Kernel"] = kernel
