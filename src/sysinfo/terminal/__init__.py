@@ -20,8 +20,10 @@ def get(result):
         from importlib import import_module
 
         name = name.strip("-").replace("-", "_").replace(" ", "").lower()
-        get_font = getattr(import_module(".{}".format(name), __package__), "get_font")
-        
+        get_font = getattr(
+            import_module(".{}".format(name), package=__package__), "get_font"
+        )
+
         result["Terminal Font"] = get_font().strip()
     except (ModuleNotFoundError, AttributeError):
         pass
