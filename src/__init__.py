@@ -17,9 +17,10 @@ from . import sysinfo
 
 sysinfo.run()
 
+result_dict = globals.get(["result"])[0]
+
 
 def get_result():
-    result_dict = globals.get(["result"])[0]
     result = "{}@{}\n".format(result_dict.pop("USERNAME"), result_dict.pop("HOSTNAME"))
     result += "-" * (len(result) - 1) + "\n"
     for key in default_result:
@@ -28,6 +29,3 @@ def get_result():
             if isinstance(val, str) and val != "":
                 result += "{}: {}\n".format(key, val)
     return result
-
-
-result = get_result()

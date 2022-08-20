@@ -9,7 +9,7 @@ def main():
 
     import src
 
-    print(src.result)
+    print(src.get_result())
 
 
 if __name__ == "__main__":
