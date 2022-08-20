@@ -1,5 +1,6 @@
 from ... import globals
 
+
 def get(result):
     sys_name = globals.get(["platform"])[0]["name"]
 
@@ -10,8 +11,7 @@ def get(result):
     else:
         pass
 
-    memory_used_mib = str(int(memory_used / (1024^2)))
-    memory_all_mib = str(int(memory_all / (1024^2)))
+    memory_used_mib = int(memory_used / (1024))
+    memory_all_mib = int(memory_all / (1024))
 
-    memory = "%sMiB / %sMiB" % (memory_used_mib, memory_all_mib)
-    result['Memory'] = memory
+    result["Memory"] = f"{memory_used_mib}MiB / {memory_all_mib}MiB"
