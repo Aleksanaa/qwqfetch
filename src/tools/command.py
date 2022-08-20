@@ -1,11 +1,11 @@
-from sys import stdout
+from locale import getpreferredencoding
 import subprocess
 from shlex import split
 
 
 class run_command:
     def __init__(self, command: str, error=False):
-        encoding = stdout.encoding
+        encoding = getpreferredencoding()
         try:
             result_object = subprocess.run(
                 split(command),
