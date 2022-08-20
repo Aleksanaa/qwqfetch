@@ -37,9 +37,9 @@ def get_from_proc():
 
 def get_from_lscpu():
     result = {}
-    from os import popen
+    from ...tools.command import run_command
 
-    lscpu_list = popen("lscpu").readlines()
+    lscpu_list = run_command("lscpu").readlines()
     if lscpu_list == [""]:
         return {}
 

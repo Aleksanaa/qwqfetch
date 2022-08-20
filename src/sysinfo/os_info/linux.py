@@ -54,9 +54,9 @@ def get_from_os_release():
 
 def get_from_lsb_release():
     try:
-        from os import popen
+        from ...tools.command import run_command
 
-        lsb_release = popen("lsb_release -a").readlines()
+        lsb_release = run_command("lsb_release -a").readlines()
         for key in lsb_release:
             if "Description:" in key:
                 name = key.split(":")[1].strip()

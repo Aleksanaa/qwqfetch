@@ -1,9 +1,9 @@
-from os import popen
+from ...tools.command import run_command
 
 
 def read_version(command,location):
     try:
-        return popen(command).read().split()[location].strip()
+        return run_command(command).read().split()[location].strip()
     except:
         return ""
 

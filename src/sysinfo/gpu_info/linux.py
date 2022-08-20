@@ -22,9 +22,9 @@ def get_from_lspci():
 
 def get_from_glxinfo():
     try:
-        from os import popen
+        from ...tools.command import run_command
 
-        glxinfo = popen("glxinfo -B").readlines()
+        glxinfo = run_command("glxinfo -B").readlines()
         for line in glxinfo:
             if "Device: " in line:
                 name = line.split(": ", 1)[1].split(" (", 1)[0]

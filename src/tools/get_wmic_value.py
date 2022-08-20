@@ -1,8 +1,8 @@
-from os import popen
+from .command import run_command
 
 
 def process(command):
-    result = popen("wmic %s" % command).read()
+    result = run_command("wmic %s" % command).read()
     for key, val in {"  ": " ", "\n ": "\n", " \n": "\n", "\n\n": "\n"}.items():
         while key in result:
             result = result.replace(key, val)

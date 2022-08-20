@@ -1,6 +1,7 @@
 import os
 from .base import config, home
 from ...globals import merge
+from ...tools.command import run_command
 
 gtk3 = {}
 
@@ -31,7 +32,7 @@ def get_gsettings_function():
         for de in de_list:
             if de in failed_list:
                 continue
-            value = os.popen(
+            value = run_command(
                 "gsettings get org.{}.desktop.interface {}".format(de, key)
             ).read()
             if value != "":
