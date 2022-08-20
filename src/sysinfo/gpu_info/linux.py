@@ -12,7 +12,7 @@ def get_from_lspci():
                     )
                     manufacturer = manufacturer.replace("/", " ")
                 else:
-                    manufacturer = ""
+                    manufacturer = line_list[1]
                 name = line_list[2].split('"')[0]
                 return ("{} {}".format(manufacturer, name)).strip()
         return ""
