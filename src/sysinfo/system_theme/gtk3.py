@@ -23,12 +23,27 @@ def read_from_config():
             pass
 
 
-def get_gsettings(key):
-    value = os.popen("gsettings get org.gnome.desktop.interface {}".format(key)).read()
-    return value.strip("' \n")
+def get_gsettings_function():
+    de_list = ["cinnamon", "gnome", "mate"]
+    failed_list = []
+
+    def get_gsettings_on_de(key):
+        for de in de_list:
+            if de in failed_list:
+                continue
+            value = os.popen(
+                "gsettings get org.{}.desktop.interface {}".format(de, key)
+            ).read()
+            if value != "":
+                return value.strip("' \n")
+            else:
+                failed_list.append(de)
+
+    return get_gsettings_on_de
 
 
 def read_from_gsettings():
+    get_gsettings = get_gsettings_function()
     merge(
         {
             "theme": get_gsettings("gtk-theme"),
