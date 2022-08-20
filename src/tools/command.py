@@ -1,14 +1,14 @@
 from sys import stdout
 import subprocess
+from shlex import split
 
 
-class run_command():
-
-    def __init__(self,command: str,error=False):
+class run_command:
+    def __init__(self, command: str, error=False):
         encoding = stdout.encoding
         try:
             result_object = subprocess.run(
-                command.split(),
+                split(command),
                 stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
