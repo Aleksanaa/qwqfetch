@@ -3,7 +3,7 @@ from ... import globals
 sys_name = globals.get(["platform"])[0]["name"]
 
 
-def get_de() -> dict[str, str]:
+def get() -> dict[str, str]:
     if sys_name == "Windows":
         de_name = "Windows Shell"
     elif sys_name == "Darwin":

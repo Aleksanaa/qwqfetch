@@ -16,7 +16,7 @@ def process_time(seconds):
     return time_str.strip(", ")
 
 
-def get_uptime() -> dict[str, str]:
+def get() -> dict[str, str]:
     if sys_type == "posix":
         from .posix import uptime_seconds
     elif sys_type == "nt":

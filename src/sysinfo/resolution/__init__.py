@@ -4,7 +4,7 @@ platform_info = globals.get(["platform"])[0]
 sys_name = platform_info["name"]
 
 
-def get_res() -> dict[str, str]:
+def get() -> dict[str, str]:
     #if sys_name == "Linux":
     #    from .linux import resolution
     if sys_name == "Windows":

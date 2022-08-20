@@ -2,7 +2,7 @@ from platform import release
 from .. import globals
 
 
-def get_kernel() -> dict[str, str]:
+def get() -> dict[str, str]:
     sys_name = globals.get(["platform"])[0]["name"]
     if sys_name == "Linux":
         kernel = release()

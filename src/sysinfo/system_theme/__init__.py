@@ -45,7 +45,7 @@ def pretty(result):
 theme_dict = {"GTK2": gtk2, "GTK3": gtk3, "Qt": qt}
 
 
-def get_theme() -> dict[str, str]:
+def get() -> dict[str, str]:
     return {
         'Theme': read('theme', theme_dict),
         'Icons': read('icons', theme_dict),

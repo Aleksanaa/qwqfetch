@@ -2,7 +2,7 @@ from ...tools.command import RunCommand
 from .pm_list import package_managers
 
 
-def get_pkg() -> dict[str, str]:
+def get() -> dict[str, str]:
     packages_list = {}
 
     for pm in package_managers:

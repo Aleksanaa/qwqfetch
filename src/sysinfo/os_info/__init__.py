@@ -1,7 +1,7 @@
 from ... import globals
 
 
-def get_os() -> dict[str, str]:
+def get() -> dict[str, str]:
     platform_info = globals.get(["platform"])[0]
     sys_name = platform_info["name"]
     sys_arch = platform_info["arch"]

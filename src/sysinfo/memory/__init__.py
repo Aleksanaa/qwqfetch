@@ -1,7 +1,8 @@
 from ... import globals
 
 
-def get_ram() -> dict[str, str]:
+def get() -> dict[str, str]:
+
     sys_name = globals.get(["platform"])[0]["name"]
 
     if sys_name == "Linux":

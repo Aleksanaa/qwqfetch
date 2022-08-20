@@ -3,7 +3,7 @@ from ... import globals
 sys_name = globals.get(["platform"])[0]["name"]
 
 
-def get_host() -> dict[str, str]:
+def get() -> dict[str, str]:
     if sys_name == "Linux":
         from .linux import info
     elif sys_name == "Windows":
