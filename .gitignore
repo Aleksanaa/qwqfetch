@@ -128,3 +128,4 @@ cython_debug/
 *.backup
 
 .vscode/
+.idea
