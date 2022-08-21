@@ -7,6 +7,8 @@ sys_type = global_vars.get(["platform"])[0]["type"]
 def get() -> dict[str, str]:
     if sys_type == "posix":
         from .posix import shell_name, shell_ver
+    elif sys_type == "nt":
+        from .windows import shell_name, shell_ver
     else:
         shell_name, shell_ver = "", ""
 
