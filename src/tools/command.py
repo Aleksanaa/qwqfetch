@@ -14,7 +14,7 @@ class run_command:
                 stderr=subprocess.STDOUT,
             )
             if (result_object.returncode == 0) is not error:
-                self.result = result_object.stdout.decode(encoding)
+                self.result = result_object.stdout.decode(encoding).strip()
             else:
                 self.result = ""
         except (FileNotFoundError, AttributeError):
