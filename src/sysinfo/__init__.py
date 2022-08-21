@@ -29,9 +29,9 @@ functions_list = [
 ]
 
 
-def task(function):
+def run_func(func):
     try:
-        return function()
+        return func()
     except:
         return {}
 
@@ -40,6 +40,6 @@ def run() -> dict[str, str]:
     with ThreadPool(os.cpu_count()) as p:
         return {
             k: v
-            for d in p.map(lambda f: f() if debug else task, functions_list)
+            for d in p.map((lambda f:f()) if debug else run_func, functions_list)
             for k, v in d.items()
         }
