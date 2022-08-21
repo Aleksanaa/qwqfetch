@@ -8,6 +8,7 @@ def get() -> dict[str, str]:
     result = {}
 
     for name in get_parents():
+        name = name.replace(".exe", "")
         if not (
             name.endswith("sh")
             or name.endswith("shell")

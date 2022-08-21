@@ -7,6 +7,8 @@ def get() -> list[str]:
     sys_name = global_vars.get(["platform"])[0]["name"]
     if sys_name == "Linux":
         from .linux import get_info
+    elif sys_name == "Windows":
+        from .windows import get_info
 
     global parent_list
     try:
@@ -17,6 +19,8 @@ def get() -> list[str]:
         parent_list = []
         while pid != "0":
             name, parent = get_info(pid)
+            if name == "":
+                break
             parent_list.append(name)
             pid = parent
         return parent_list
