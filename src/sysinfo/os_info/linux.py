@@ -1,3 +1,5 @@
+from ...tools import parse_info
+
 info_dict = {
     "name": "",
     "version": "",
@@ -32,21 +34,20 @@ def get_from_distro():
 
 def get_from_os_release():
     try:
-        os_release = open("/etc/os-release").readlines()
-        for key in os_release:
-            if "PRETTY_NAME" in key:
-                full_name = key.split("=", 1)[1].strip('" \n')
-                if full_name != "":
-                    info_dict["full_name"] = full_name
-                    break
-            elif "NAME" in key:
-                info_dict["name"] = key.split("=")[1].strip('" ')
-            elif "VERSION_ID" in key:
-                info_dict["version"] = key.split("=")[1].strip('" ')
-            elif "VERSION_CODENAME" in key:
-                info_dict["codename"] = key.split("=")[1].strip()
-            elif "BUILD_ID=rolling" in key:
-                info_dict["no_version"] = True
+        os_release = open("/etc/os-release").read()
+        requirements = {
+            "PRETTY_NAME": "full_name",
+            "NAME": "name",
+            "VERSION_ID": "version",
+            "VERSION_CODENAME": "codename",
+            "BUILD_ID": "build_id",
+        }
+        outputs: dict[str, str] = parse_info.parser(os_release, requirements, "=")
+        if outputs.pop("build_id") == "rolling":
+            info_dict["no_version"] = True
+        for key in outputs.keys():
+            if outputs[key] != "":
+                info_dict[key] = outputs[key].strip('"')
 
     except (FileNotFoundError, IndexError):
         pass
@@ -56,18 +57,16 @@ def get_from_lsb_release():
     try:
         from ...tools.command import RunCommand
 
-        lsb_release = RunCommand("lsb_release -a").readlines()
-        for key in lsb_release:
-            if "Description:" in key:
-                name = key.split(":")[1].strip()
-                if name != "n/a":
-                    info_dict["full_name"] = name
-            if "Release:" in key:
-                version = key.split(":")[1].strip()
-                if version == "rolling":
-                    info_dict["no_version"] = True
-                else:
-                    info_dict["version"] = version
+        requirements = {"Description": "full_name", "Release": "version"}
+        lsb_release = RunCommand("lsb_release -a").read()
+        lsb_release: dict[str, str] = parse_info.parser(lsb_release, requirements, ":")
+
+        if lsb_release["full_name"] != "n/a" or "":
+            info_dict["full_name"] = lsb_release["full_name"]
+        if lsb_release["version"] == "rolling":
+            info_dict["no_version"] = True
+        elif lsb_release["version"] != "":
+            info_dict["version"] = lsb_release["version"]
 
     except IndexError:
         pass
