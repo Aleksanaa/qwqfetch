@@ -1,7 +1,7 @@
 from __future__ import annotations
-from ... import globals
+from ... import global_vars
 
-sys_type = globals.get(["platform"])[0]["type"]
+sys_type = global_vars.get(["platform"])[0]["type"]
 
 
 def get() -> dict[str, str]:

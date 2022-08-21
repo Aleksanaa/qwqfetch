@@ -1,10 +1,10 @@
 from __future__ import annotations
 from platform import release
-from .. import globals
+from .. import global_vars
 
 
 def get() -> dict[str, str]:
-    sys_name = globals.get(["platform"])[0]["name"]
+    sys_name = global_vars.get(["platform"])[0]["name"]
     if sys_name == "Linux":
         kernel = release()
     elif sys_name == "Darwin":

@@ -1,19 +1,16 @@
 from __future__ import annotations
 from os import getpid
-from . import parse_proc
-
-
-def get_info(id: str) -> tuple[str]:
-    info_dict = parse_proc(f"/proc/{id}/status")[0]
-    name = info_dict["Name"]
-    parent = info_dict["PPid"]
-    return name, parent
+from ... import global_vars
 
 
 def get() -> list[str]:
+    sys_name = global_vars.get(["platform"])[0]["name"]
+    if sys_name == "Linux":
+        from .linux import get_info
+
     global parent_list
     try:
-        if parent_list in globals:
+        if parent_list in globals():
             return parent_list
     except:
         pid = getpid()

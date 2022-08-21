@@ -1,13 +1,13 @@
 from __future__ import annotations
-from . import globals
+from . import global_vars
 from .basic_system_info import *
 from .default_result_list import default_result
 
 
 def get_result_dict() -> dict[str, str]:
-    globals._init()
+    global_vars._init()
 
-    globals.set(
+    global_vars.set(
         {
             "platform": {"name": sys_name, "type": sys_type, "arch": sys_arch},
             "result": {result: "" for result in default_result},

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from ...globals import merge
+from ...global_vars import merge
 
 
 def get_cpu_freq_sys(index: int) -> int | None:

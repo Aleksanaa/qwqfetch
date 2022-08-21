@@ -1,6 +1,6 @@
 import os
 from .base import config, home
-from ...globals import merge
+from ...global_vars import merge
 from ...tools.command import RunCommand
 
 gtk3 = {}

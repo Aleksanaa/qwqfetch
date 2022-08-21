@@ -1,7 +1,7 @@
 from __future__ import annotations
-from ... import globals
+from ... import global_vars
 
-platform_info = globals.get(["platform"])[0]
+platform_info = global_vars.get(["platform"])[0]
 sys_name = platform_info["name"]
 
 
