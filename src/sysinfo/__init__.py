@@ -3,6 +3,8 @@ import os
 from multiprocessing.pool import ThreadPool
 from importlib import import_module
 
+debug = False
+
 modules_name_list = [
     "board_name",
     "cpu_info",
@@ -27,8 +29,17 @@ functions_list = [
 ]
 
 
+def task(function):
+    try:
+        return function()
+    except:
+        return {}
+
+
 def run() -> dict[str, str]:
     with ThreadPool(os.cpu_count()) as p:
         return {
-            k: v for d in p.map(lambda f: f(), functions_list) for k, v in d.items()
+            k: v
+            for d in p.map(lambda f: f() if debug else task, functions_list)
+            for k, v in d.items()
         }
