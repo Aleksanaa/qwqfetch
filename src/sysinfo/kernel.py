@@ -2,7 +2,7 @@ from platform import release
 from .. import globals
 
 
-def get(result):
+def get_kernel() -> dict[str, str]:
     sys_name = globals.get(["platform"])[0]["name"]
     if sys_name == "Linux":
         kernel = release()
@@ -14,4 +14,4 @@ def get(result):
         kernel = f"NT {get_wmic('os get version')}"
     else:
         kernel = ""
-    result["Kernel"] = kernel
+    return {'Kernel': kernel}

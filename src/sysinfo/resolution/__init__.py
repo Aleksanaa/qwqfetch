@@ -3,7 +3,8 @@ from ... import globals
 platform_info = globals.get(["platform"])[0]
 sys_name = platform_info["name"]
 
-def get(result):
+
+def get_res() -> dict[str, str]:
     #if sys_name == "Linux":
     #    from .linux import resolution
     if sys_name == "Windows":
@@ -20,5 +21,4 @@ def get(result):
     #    name = name.strip()
     #    return name
 
-    resolution = resolution.strip()
-    result['Resolution'] = resolution
+    return {'Resolution': resolution.strip()}

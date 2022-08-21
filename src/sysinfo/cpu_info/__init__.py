@@ -16,7 +16,7 @@ def strip_name(name: str) -> str:
     return name
 
 
-def get(result: dict) -> str:
+def get_cpu() -> dict[str, str]:
     if sys_name == "Linux":
         from .linux import get_cpu_info
     elif sys_name == "Windows":
@@ -39,4 +39,4 @@ def get(result: dict) -> str:
     if info.get('freq'):
         output.append(f"@ {info['freq'] / 1000_000:.2f} GHz")
 
-    result['CPU'] = ' '.join(output)
+    return {'CPU': ' '.join(output)}

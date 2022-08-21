@@ -1,51 +1,27 @@
-from .. import globals
-from importlib import import_module
+import os
+from multiprocessing.pool import ThreadPool
+
+from .board_name import get_host
+from .cpu_info import get_cpu
+from .desktop_environment import get_de
+from .gpu_info import get_gpu
+from .kernel import get_kernel
+from .memory import get_ram
+from .os_info import get_os
+from .package_count import get_pkg
+from .resolution import get_res
+from .shell import get_shell
+from .system_theme import get_theme
+from .terminal import get_term
+from .uptime import get_uptime
+from .username import get_username
 
 use_threading = True
 
-functions_list = [
-    getattr(import_module(f".{package}", package=__package__), "get")
-    # do not use path here.
-    # or zipapp and pyinstaller won't work.
-    for package in [
-        "board_name",
-        "cpu_info",
-        "desktop_environment",
-        "gpu_info",
-        "memory",
-        "os_info",
-        "package_count",
-        "resolution",
-        "shell",
-        "uptime",
-        "hostname",
-        "kernel",
-        "username",
-        "system_theme",
-        "terminal",
-    ]
-]
+functions_list = [get_username, get_os, get_host, get_kernel, get_uptime, get_pkg, get_shell,
+                  get_res, get_de, get_theme, get_term, get_cpu, get_gpu, get_ram]
 
 
-def run():
-    output_slot = [{}] * len(functions_list)
-
-    if use_threading:
-        thread_list = []
-
-        from threading import Thread
-
-        for index, function in enumerate(functions_list):
-            thread = Thread(target=function, args=[output_slot[index]])
-            thread.start()
-            thread_list.append(thread)
-
-        for thread in thread_list:
-            thread.join()
-
-    else:
-        for index, function in enumerate(functions_list):
-            function(output_slot[index])
-
-    for result_dict in output_slot:
-        globals.set({"result": result_dict})
+def run() -> dict[str, str]:
+    with ThreadPool(os.cpu_count()) as p:
+        return {k: v for d in p.map(lambda f: f(), functions_list) for k, v in d.items()}

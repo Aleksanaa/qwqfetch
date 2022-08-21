@@ -16,14 +16,7 @@ def get_result_dict():
 
     from . import sysinfo
 
-    sysinfo.run()
-    result_dict = {
-        key: val
-        for key, val in globals.get(["result"])[0].items()
-        if key in ["USERNAME", "HOSTNAME"] or val != ""
-    }
-
-    return result_dict
+    return sysinfo.run()
 
 
 def get_result():

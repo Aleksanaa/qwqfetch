@@ -16,11 +16,11 @@ def process_time(seconds):
     return time_str.strip(", ")
 
 
-def get(result):
+def get_uptime() -> dict[str, str]:
     if sys_type == "posix":
         from .posix import uptime_seconds
     elif sys_type == "nt":
         from .windows import uptime_seconds
     else:
         uptime_seconds = 0
-    result['Uptime'] = process_time(uptime_seconds)
+    return {'Uptime': process_time(uptime_seconds)}

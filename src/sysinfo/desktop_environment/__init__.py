@@ -2,7 +2,8 @@ from ... import globals
 
 sys_name = globals.get(["platform"])[0]["name"]
 
-def get(result):
+
+def get_de() -> dict[str, str]:
     if sys_name == "Windows":
         de_name = "Windows Shell"
     elif sys_name == "Darwin":
@@ -10,8 +11,10 @@ def get(result):
     elif sys_name == "Linux":
         from os import getenv
         de_name = getenv('DESKTOP_SESSION')
+    else:
+        de_name = ''
 
     if de_name == "plasma":
         from .plasma import get as getplasma
         de_name = getplasma()
-    result['DE'] = de_name
+    return {'DE': de_name}

@@ -1,7 +1,8 @@
-def get(result):
-
+def get_term() -> dict[str, str]:
     from ...tools import get_parents
     from .corrections import correction_dict
+
+    result = {}
 
     for name in get_parents():
         if not (
@@ -27,3 +28,5 @@ def get(result):
         result["Terminal Font"] = get_font().strip()
     except (ModuleNotFoundError, AttributeError):
         pass
+
+    return result
