@@ -1,9 +1,10 @@
 from __future__ import annotations
-import os
+from os import cpu_count
 from multiprocessing.pool import ThreadPool
 from importlib import import_module
 
 debug = False
+threading = True
 
 modules_name_list = [
     "board_name",
@@ -30,16 +31,19 @@ functions_list = [
 
 
 def run_func(func):
-    try:
+    if debug:
         return func()
-    except:
-        return {}
+    else:
+        try:
+            return func()
+        except:
+            return {}
 
 
 def run() -> dict[str, str]:
-    with ThreadPool(os.cpu_count()) as p:
-        return {
-            k: v
-            for d in p.map((lambda f:f()) if debug else run_func, functions_list)
-            for k, v in d.items()
-        }
+    if threading:
+        with ThreadPool(cpu_count()) as p:
+            return_list = p.map(run_func, functions_list)
+    else:
+        return_list = [run_func(f) for f in functions_list]
+    return {k: v for d in return_list for k, v in d.items()}
