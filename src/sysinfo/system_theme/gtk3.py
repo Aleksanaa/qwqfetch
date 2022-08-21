@@ -24,7 +24,7 @@ def read_from_config() -> None:
             pass
 
 
-def get_gsettings_function() -> function:
+def get_gsettings_function():
     de_list = ["cinnamon", "gnome", "mate"]
     failed_list = []
 
