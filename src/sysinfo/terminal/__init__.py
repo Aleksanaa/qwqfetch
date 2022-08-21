@@ -13,7 +13,7 @@ def get() -> dict[str, str]:
             name.endswith("sh")
             or name.endswith("shell")
             or name.startswith("python")
-            or name in ["nu", "su", "sudo", "doas", "screen", "hyfetch", "tmux"]
+            or name in ["nu", "su", "sudo", "doas", "screen", "hyfetch", "tmux", "cmd"]
         ):
             if name in correction_dict.keys():
                 result["Terminal"] = correction_dict[name]
