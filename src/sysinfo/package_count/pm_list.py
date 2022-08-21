@@ -4,7 +4,7 @@ package_managers = [
     {"name": "pacman", "command": "pacman -Qq --color never"},
     {
         "name": "dpkg",
-        "command": "dpkg-query -f '.\n' -W",
+        "command": r"dpkg-query -f '.\n' -W",
     },
     {
         "name": "flatpak",

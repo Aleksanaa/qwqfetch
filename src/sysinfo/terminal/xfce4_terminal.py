@@ -7,7 +7,7 @@ def get_font() -> str:
     needs = {"FontName": "font_name", "FontUseSystem": "use_system"}
     try:
         results = parse_info.parser(open(xfce4_config).read(), needs, "=")
-        if "use_system" in results and results["use_system"] == "TRUE":
+        if results["use_system"] == "TRUE":
             from ...tools.command import run_command
 
             font_name = (
@@ -18,7 +18,7 @@ def get_font() -> str:
             if font_name != "":
                 return font_name
 
-        elif "font_name" in results:
+        else:
             return results["font_name"]
     except FileNotFoundError:
         pass

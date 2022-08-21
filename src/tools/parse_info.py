@@ -16,12 +16,13 @@
 
 
 def parser(inputs: str, needs: dict[str, str], separator: str) -> dict[str, str]:
-    satisfied = {}
+    satisfied = {key: "" for key in needs.values()}
     for line in inputs.split("\n"):
         for key, val in needs.items():
-            if val not in satisfied.values():
-                if line.strip().startswith(key):
-                    line_list = line.split(separator, 1)
-                    if line_list[0].strip() == key:
-                        satisfied[val] = line_list[1].strip()
+            if line.strip().startswith(key):
+                line_list = line.split(separator, 1)
+                if line_list[0].strip() == key:
+                    satisfied[val] = line_list[1].strip()
+                    needs.pop(key)
+                    break
     return satisfied

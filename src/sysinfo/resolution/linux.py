@@ -1,5 +1,6 @@
 from ...tools.command import RunCommand
 
+
 def get_from_xrandr() -> str:
     try:
         xrandr = RunCommand("xrandr --nograb --current").readlines()
@@ -13,16 +14,15 @@ def get_from_xrandr() -> str:
 
 
 def get_from_xwininfo() -> str:
+    from ...tools import parse_info
+
     try:
-        xwininfo = RunCommand("xwininfo -root").readlines()
-        width, height = "", ""
-        for line in xwininfo:
-            if "Width:" in line:
-                width = line.split(":")[1].strip()
-            elif "Height:" in line:
-                height = line.split(":")[1].strip()
-            if width != "" and height != "":
-                return f"{width}x{height}"
+        xwininfo: str = RunCommand("xwininfo -root").read()
+        xwininfo: dict["str", "str"] = parse_info(
+            xwininfo, {"Width": "width", "Height": "height"}, ":"
+        )
+        if xwininfo["width"] and xwininfo["height"] != "":
+            return f"{xwininfo['width']}x{xwininfo['height']}"
     except (AttributeError, TypeError):
         pass
     return ""
