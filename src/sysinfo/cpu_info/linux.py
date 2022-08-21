@@ -1,73 +1,70 @@
+from __future__ import annotations
+
+from pathlib import Path
+
 from ...globals import merge
-from collections import Counter
 
 
-def get_cpu_freq_sys(index):
-    freq_path = "/sys/devices/system/cpu/cpu%s/cpufreq/" % index
+def get_cpu_freq_sys(index: int) -> int | None:
+    freq_path = Path(f"/sys/devices/system/cpu/cpu{index}/cpufreq/")
     try:
-        freq_max = int(open(freq_path + "cpuinfo_max_freq").read())
+        freq_max = int((freq_path / "cpuinfo_max_freq").read_text())
         try:
-            freq_bios_max = int(open(freq_path + "bios_limit").read())
-            return "%.3fGHz" % (min(freq_bios_max, freq_max) / 1000000)
+            freq_bios_max = int((freq_path / "bios_limit").read_text())
+            return min(freq_bios_max, freq_max)
         except:
-            return "%.3fGHz" % (freq_max / 1000000)
+            return freq_max
     except:
-        return ""
+        return None
 
 
-def get_from_proc():
+def get_from_proc() -> dict:
     from ...tools import parse_proc
 
     def strip_cpu_info(cpu_list):
         iterator = 0
         while iterator < len(cpu_list):
             iterator += 1
-            del cpu_list[iterator : int(cpu_list[iterator - 1]["siblings"])]
+            del cpu_list[iterator: int(cpu_list[iterator - 1]["siblings"])]
         return cpu_list
 
     cpu_raw_info = strip_cpu_info(parse_proc("/proc/cpuinfo"))
-    result = {
+    return {
         "name": cpu_raw_info[0]["model name"],
-        "core": cpu_raw_info[0]["siblings"],
+        "core": int(cpu_raw_info[0]["siblings"]),
         "freq": get_cpu_freq_sys(cpu_raw_info[0]["processor"]),
-        "count": str(len(cpu_raw_info)),
+        "count": len(cpu_raw_info),
     }
-    return result
 
 
-def get_from_lscpu():
-    result = {}
-    from ...tools.command import run_command
+def get_from_lscpu() -> dict:
+    from ...tools.command import RunCommand
 
-    lscpu_list = run_command("lscpu").readlines()
-    if lscpu_list == [""]:
-        return {}
-
-    corresponds = {
-        "Socket(s):": "count",
-        "CPU(s):": "core",  # is wrong but will correct later
-        "CPU max MHz:": "freq",
-        "CPU MHz:": "freq",
-        "Model name:": "name",
+    mapping = {
+        "Socket(s)": "count",
+        "CPU(s)": "core",  # is wrong but will correct later
+        "CPU MHz": "freq",
+        "CPU max MHz": "freq",
+        "Model name": "name",
     }
-    for line in lscpu_list:
-        for entry, key in corresponds.items():
-            if line.strip().startswith(entry):
-                result[key] = line.split(":", 1)[1].strip()
-    try:
-        result["core"] = str(int(int(result["core"]) / int(result["count"])))
-        result["freq"] = "%.3fGHz" % (float(result["freq"]) / 1000)
-    except (IndexError, ValueError):
-        pass
-    return result
+
+    lscpu: dict[str, str | int] = dict(ln.split(':', 1) for ln in RunCommand("lscpu").readlines() if ':' in ln)
+    lscpu = {mapping[k.strip()]: v.strip() for k, v in lscpu.items() if k in mapping and v.strip()}
+
+    if 'freq' in lscpu:
+        lscpu['freq'] = int(lscpu['freq']) * 1000
+
+    if 'core' in lscpu and 'count' in lscpu:
+        lscpu['count'] = int(lscpu['count'])
+        lscpu['core'] = int(lscpu['core']) // lscpu['count']
+
+    return lscpu
 
 
-for method in [get_from_proc, get_from_lscpu]:
+def get_cpu_info() -> dict:
     cpu_info_dict = {}
-    merge(method(), cpu_info_dict)
-    if (
-        Counter(["count", "core", "freq", "name"])
-        == Counter(list(cpu_info_dict.keys()))
-        and "" not in cpu_info_dict.values()
-    ):
-        break
+    for method in [get_from_proc, get_from_lscpu]:
+        cpu_info_dict.update({k: v for k, v in method().items() if v})
+        if {"count", "core", "freq", "name"} == set(cpu_info_dict.keys()):
+            break
+    return cpu_info_dict

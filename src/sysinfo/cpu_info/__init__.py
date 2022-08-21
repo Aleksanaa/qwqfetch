@@ -6,35 +6,37 @@ sys_name = platform_info["name"]
 sys_arch = platform_info["arch"]
 
 
-def strip(name):
+def strip_name(name: str) -> str:
     for info in unwanted:
-        name = name.replace(info, "").replace("  ", " ")
-        name = name.strip()
+        name = name.replace(info, "").strip()
+    # Remove existing frequency info
+    name = name[:name.index(' @ ')]
+    while '  ' in name:
+        name = name.replace('  ', ' ')
     return name
 
 
-def get(result):
+def get(result: dict) -> str:
     if sys_name == "Linux":
-        from .linux import cpu_info_dict
+        from .linux import get_cpu_info
     elif sys_name == "Windows":
-        from .windows import cpu_info_dict
+        from .windows import get_cpu_info
     else:
-        cpu_info_dict = None
+        get_cpu_info = lambda: {}
 
-    cpu_info = ""
+    info = get_cpu_info()
+    output = []
 
     # if you can prove to me you have more than one different processors,
     # and actually using it and have python >= 3.7 installed
     # I'll change this as soon as possible.
-    if cpu_info_dict != {}:
-        if cpu_info_dict["count"] != "1" or "":
-            cpu_info += f"{cpu_info_dict['count']}x "
-        if cpu_info_dict["core"] != "1":
-            cpu_info += f"{strip(cpu_info_dict['name'])} ({cpu_info_dict['core']})"
-        else:
-            cpu_info += strip(cpu_info_dict["name"])
-        if cpu_info_dict["freq"] != "":
-            cpu_info += f" @ {cpu_info_dict['freq']}"
+    if 'count' in info and info['count'] > 1:
+        output.append(f"{info['count']}x")
+    if info.get('name'):
+        output.append(strip_name(info['name']))
+    if 'core' in info and info["core"] > 1:
+        output.append(f"({info['core']})")
+    if info.get('freq'):
+        output.append(f"@ {info['freq'] / 1000_000:.2f} GHz")
 
-    cpu_info = cpu_info.strip()
-    result["CPU"] = cpu_info
+    result['CPU'] = ' '.join(output)

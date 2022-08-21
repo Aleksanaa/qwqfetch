@@ -28,8 +28,8 @@ def get_result_dict():
 
 def get_result():
     result_dict = get_result_dict()
-    result = "{}@{}\n".format(result_dict.pop("USERNAME"), result_dict.pop("HOSTNAME"))
+    result = f"{result_dict.pop('USERNAME')}@{result_dict.pop('HOSTNAME')}\n"
     result += "-" * (len(result) - 1) + "\n"
     for key, val in result_dict.items():
-        result += "{}: {}\n".format(key, val)
+        result += f'{key}: {val}\n'
     return result
