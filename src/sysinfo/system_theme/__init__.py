@@ -1,4 +1,7 @@
 import os
+from .gtk2 import gtk2
+from .gtk3 import gtk3
+from .qt import qt
 
 
 def read_cursor(theme_dict):
@@ -15,7 +18,7 @@ def read_cursor(theme_dict):
     return ""
 
 
-def read(theme_type, theme_dict):
+def read(theme_type: str, theme_dict):
     result = ""
     result_dict = {}
     for t in theme_dict.keys():
@@ -28,7 +31,7 @@ def read(theme_type, theme_dict):
         same_list = [i for i in result_dict if result_dict[i] == next_value]
         tag = "/".join(same_list)
         [result_dict.pop(key) for key in same_list]
-        result += "%s [%s] " % (next_value, tag)
+        result += f"{next_value} [{tag}] "
     return pretty(result.strip())
 
 
@@ -39,16 +42,12 @@ def pretty(result):
     return result.strip()
 
 
-def get(result):
-    from .gtk2 import gtk2
-    from .gtk3 import gtk3
-    from .qt import qt
+theme_dict = {"GTK2": gtk2, "GTK3": gtk3, "Qt": qt}
 
-    theme_dict = {"GTK2": gtk2, "GTK3": gtk3, "Qt": qt}
-    result.update(
-        {
-            "Theme": read("theme", theme_dict),
-            "Icons": read("icons", theme_dict),
-            "Cursor": read_cursor(theme_dict),
-        }
-    )
+
+def get() -> dict[str, str]:
+    return {
+        'Theme': read('theme', theme_dict),
+        'Icons': read('icons', theme_dict),
+        'Cursor': read_cursor(theme_dict)
+    }

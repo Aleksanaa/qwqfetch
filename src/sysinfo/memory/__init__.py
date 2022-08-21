@@ -1,7 +1,8 @@
 from ... import globals
 
 
-def get(result):
+def get() -> dict[str, str]:
+
     sys_name = globals.get(["platform"])[0]["name"]
 
     if sys_name == "Linux":
@@ -9,9 +10,8 @@ def get(result):
     elif sys_name == "Windows":
         from .windows import memory_used, memory_all
     else:
-        pass
+        return {}
 
-    memory_used_mib = int(memory_used / (1024))
-    memory_all_mib = int(memory_all / (1024))
-
-    result["Memory"] = f"{memory_used_mib}MiB / {memory_all_mib}MiB"
+    return {
+        "Memory": f"{memory_used / 1024 ** 2:.1f} GiB / {memory_all / 1024 ** 2:.1f} GiB"
+    }

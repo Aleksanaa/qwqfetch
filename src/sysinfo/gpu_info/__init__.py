@@ -4,7 +4,7 @@ platform_info = globals.get(["platform"])[0]
 sys_name = platform_info["name"]
 
 
-def get(result):
+def get() -> dict[str, str]:
     # if sys_name == "Linux":
     #    from .linux import gpu_info
     if sys_name == "Windows":
@@ -21,5 +21,4 @@ def get(result):
     #    name = name.strip()
     #    return name
 
-    gpu_info = gpu_info.strip()
-    result["GPU"] = gpu_info
+    return {'GPU': gpu_info.strip()}

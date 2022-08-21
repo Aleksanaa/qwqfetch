@@ -1,7 +1,7 @@
 from ... import globals
 
 
-def get(result):
+def get() -> dict[str, str]:
     platform_info = globals.get(["platform"])[0]
     sys_name = platform_info["name"]
     sys_arch = platform_info["arch"]
@@ -15,4 +15,4 @@ def get(result):
     else:
         info = ""
 
-    result["OS"] = "%s %s" % (info, sys_arch)
+    return {'OS': f"{info} {sys_arch}"}

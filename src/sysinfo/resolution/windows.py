@@ -7,4 +7,4 @@ resolution_vertical = get_wmic(
     "path Win32_VideoController get CurrentVerticalResolution"
 ).strip()
 
-resolution = "{}x{}".format(resolution_horizontal, resolution_vertical)
+resolution = f"{resolution_horizontal}x{resolution_vertical}"

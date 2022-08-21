@@ -1,14 +1,14 @@
 import os
 from .base import config, home
 from ...globals import merge
-from ...tools.command import run_command
+from ...tools.command import RunCommand
 
 gtk3 = {}
 
 
 def read_from_config():
 
-    file = "%s/.config/gtk-3.0/settings.ini" % home
+    file = f"{home}/.config/gtk-3.0/settings.ini"
     if os.path.exists(file):
         try:
             config.read(file)
@@ -32,9 +32,7 @@ def get_gsettings_function():
         for de in de_list:
             if de in failed_list:
                 continue
-            value = run_command(
-                "gsettings get org.{}.desktop.interface {}".format(de, key)
-            ).read()
+            value = RunCommand(f"gsettings get org.{de}.desktop.interface {key}").read()
             if value != "":
                 return value.strip("' \n")
             else:

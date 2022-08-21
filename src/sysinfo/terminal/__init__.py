@@ -1,7 +1,8 @@
-def get(result):
-
+def get() -> dict[str, str]:
     from ...tools import get_parents
     from .corrections import correction_dict
+
+    result = {}
 
     for name in get_parents():
         if not (
@@ -21,9 +22,11 @@ def get(result):
 
         name = name.strip("-").replace("-", "_").replace(" ", "").lower()
         get_font = getattr(
-            import_module(".{}".format(name), package=__package__), "get_font"
+            import_module(f".{name}", package=__package__), "get_font"
         )
 
         result["Terminal Font"] = get_font().strip()
     except (ModuleNotFoundError, AttributeError):
         pass
+
+    return result

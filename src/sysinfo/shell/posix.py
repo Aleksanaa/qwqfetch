@@ -1,11 +1,9 @@
-from os import getenv
-from ...tools.command import run_command
+import os
+from ...tools.command import RunCommand
 
-shell_name = getenv("SHELL").split("/")[-1].strip()
+shell_name = os.getenv("SHELL").split("/")[-1].strip()
 
 if shell_name in ["bash", "zsh"]:
-    shell_ver = run_command(
-        "%s -c 'echo $%s_VERSION'" % (shell_name, shell_name.upper())
-    ).read()
+    shell_ver = RunCommand(f"{shell_name} -c 'echo ${shell_name.upper()}_VERSION'").read()
 else:
     shell_ver = ""

@@ -54,9 +54,9 @@ def get_from_os_release():
 
 def get_from_lsb_release():
     try:
-        from ...tools.command import run_command
+        from ...tools.command import RunCommand
 
-        lsb_release = run_command("lsb_release -a").readlines()
+        lsb_release = RunCommand("lsb_release -a").readlines()
         for key in lsb_release:
             if "Description:" in key:
                 name = key.split(":")[1].strip()
@@ -93,5 +93,5 @@ if info_dict["full_name"] != "":
 else:
     info = ""
     for key in key_order:  # get correct output order
-        info = "{} {}".format(info, info_dict[key])
+        info = f"{info} {info_dict[key]}"
         info = info.strip()

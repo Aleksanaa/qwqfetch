@@ -1,50 +1,33 @@
-from .. import globals
+import os
+from multiprocessing.pool import ThreadPool
 from importlib import import_module
 
-use_threading = True
-
-functions_list = [
-    getattr(import_module(".%s" % package, package=__package__), "get")
-    # do not use path here.
-    # or zipapp and pyinstaller won't work.
-    for package in [
-        "board_name",
-        "cpu_info",
-        "desktop_environment",
-        "gpu_info",
-        "memory",
-        "os_info",
-        "package_count",
-        "resolution",
-        "shell",
-        "uptime",
-        "hostname",
-        "kernel",
-        "username",
-        "system_theme",
-        "terminal",
-    ]
+modules_name_list = [
+    "board_name",
+    "cpu_info",
+    "desktop_environment",
+    "gpu_info",
+    "kernel",
+    "memory",
+    "os_info",
+    "package_count",
+    "resolution",
+    "shell",
+    "system_theme",
+    "terminal",
+    "uptime",
+    "username",
 ]
 
 
-def run():
-    output_slot = [{}] * len(functions_list)
-    if use_threading == True:
-        thread_list = []
+functions_list = [
+    getattr(import_module(f".{module_name}", package=__package__), "get")
+    for module_name in modules_name_list
+]
 
-        from threading import Thread
 
-        for index, function in enumerate(functions_list):
-            thread = Thread(target=function, args=[output_slot[index]])
-            thread.start()
-            thread_list.append(thread)
-
-        for thread in thread_list:
-            thread.join()
-
-    else:
-        for index, function in enumerate(functions_list):
-            function(output_slot[index])
-
-    for result_dict in output_slot:
-        globals.set({"result": result_dict})
+def run() -> dict[str, str]:
+    with ThreadPool(os.cpu_count()) as p:
+        return {
+            k: v for d in p.map(lambda f: f(), functions_list) for k, v in d.items()
+        }
