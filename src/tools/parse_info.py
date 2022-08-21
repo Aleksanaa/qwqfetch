@@ -23,5 +23,5 @@ def parser(inputs: str, needs: dict, separator: str):
                 if line.strip().startswith(key):
                     line_list = line.split(separator, 1)
                     if line_list[0].strip() == key:
-                        satisfied[val] = line_list[1]
+                        satisfied[val] = line_list[1].strip()
     return satisfied
