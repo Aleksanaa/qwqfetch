@@ -35,7 +35,7 @@ def get_from_drm() -> str:
 
         for dir in scandir(drm_dir):
             if dir.is_dir():
-                resolution = open(dir.path).readline()
+                resolution = open(f"{dir.path}/modes").readline()
                 return resolution
     except FileNotFoundError:
         pass

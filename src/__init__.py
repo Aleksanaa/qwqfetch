@@ -3,7 +3,7 @@ from .basic_system_info import *
 from .default_result_list import default_result
 
 
-def get_result_dict() -> dict[str,str]:
+def get_result_dict() -> dict[str, str]:
     globals._init()
 
     globals.set(
@@ -16,9 +16,15 @@ def get_result_dict() -> dict[str,str]:
 
     from . import sysinfo
 
-    return dict(
-        sorted(sysinfo.run().items(), key=lambda pair: default_result.index(pair[0]))
-    )
+    return {
+        key: value
+        for key, value in dict(
+            sorted(
+                sysinfo.run().items(), key=lambda pair: default_result.index(pair[0])
+            )
+        ).items()
+        if value != ""
+    }
 
 
 def get_result() -> str:
