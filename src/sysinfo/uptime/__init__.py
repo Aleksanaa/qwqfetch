@@ -1,3 +1,4 @@
+from __future__ import annotations
 from ... import globals
 
 sys_type = globals.get(["platform"])[0]["type"]

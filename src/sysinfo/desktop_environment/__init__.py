@@ -1,3 +1,4 @@
+from __future__ import annotations
 from ... import globals
 
 sys_name = globals.get(["platform"])[0]["name"]

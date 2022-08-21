@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 def get() -> dict[str, str]:
     from ...tools import get_parents
     from .corrections import correction_dict

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 # It is used to deal with this kind of strings:
 
 # Name: Arch Linux

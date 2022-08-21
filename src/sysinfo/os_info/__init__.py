@@ -1,3 +1,4 @@
+from __future__ import annotations
 from ... import globals
 
 
@@ -15,4 +16,4 @@ def get() -> dict[str, str]:
     else:
         info = ""
 
-    return {'OS': f"{info} {sys_arch}"}
+    return {"OS": f"{info} {sys_arch}"}

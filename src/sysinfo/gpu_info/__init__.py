@@ -1,3 +1,4 @@
+from __future__ import annotations
 from ... import globals
 
 platform_info = globals.get(["platform"])[0]
@@ -21,4 +22,4 @@ def get() -> dict[str, str]:
     #    name = name.strip()
     #    return name
 
-    return {'GPU': gpu_info.strip()}
+    return {"GPU": gpu_info.strip()}

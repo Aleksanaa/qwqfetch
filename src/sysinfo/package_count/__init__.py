@@ -1,3 +1,4 @@
+from __future__ import annotations
 from ...tools.command import RunCommand
 from .pm_list import package_managers
 
@@ -13,4 +14,4 @@ def get() -> dict[str, str]:
                 packages_list[pm["name"]] = count
 
     packages = [f"{count} ({pm})" for pm, count in packages_list.items()]
-    return {'Packages': ', '.join(packages)}
+    return {"Packages": ", ".join(packages)}

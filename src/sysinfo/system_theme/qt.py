@@ -1,3 +1,4 @@
+from __future__ import annotations
 from os import path
 from .base import config, home
 from ...tools.command import RunCommand

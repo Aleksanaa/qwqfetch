@@ -1,3 +1,4 @@
+from __future__ import annotations
 from . import globals
 from .basic_system_info import *
 from .default_result_list import default_result

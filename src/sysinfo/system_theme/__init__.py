@@ -1,3 +1,4 @@
+from __future__ import annotations
 import os
 from .gtk2 import gtk2
 from .gtk3 import gtk3

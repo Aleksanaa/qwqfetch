@@ -1,3 +1,4 @@
+from __future__ import annotations
 import os
 from multiprocessing.pool import ThreadPool
 from importlib import import_module
