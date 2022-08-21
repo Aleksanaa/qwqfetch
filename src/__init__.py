@@ -16,7 +16,9 @@ def get_result_dict():
 
     from . import sysinfo
 
-    return sysinfo.run()
+    return dict(
+        sorted(sysinfo.run().items(), key=lambda pair: default_result.index(pair[0]))
+    )
 
 
 def get_result():
@@ -24,5 +26,5 @@ def get_result():
     result = f"{result_dict.pop('USERNAME')}@{result_dict.pop('HOSTNAME')}\n"
     result += "-" * (len(result) - 1) + "\n"
     for key, val in result_dict.items():
-        result += f'{key}: {val}\n'
+        result += f"{key}: {val}\n"
     return result
