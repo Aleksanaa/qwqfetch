@@ -15,7 +15,7 @@
 # It will output {"name":"Arch Linux","arch":"x86_64"}
 
 
-def parser(inputs: str, needs: dict, separator: str):
+def parser(inputs: str, needs: dict[str, str], separator: str) -> dict[str, str]:
     satisfied = {}
     for line in inputs.split("\n"):
         for key, val in needs.items():

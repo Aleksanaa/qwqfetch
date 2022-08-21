@@ -1,7 +1,7 @@
 from .command import RunCommand
 
 
-def process(command):
+def process(command: str) -> str:
     result = RunCommand(f"wmic {command}").read()
     for key, val in {"  ": " ", "\n ": "\n", " \n": "\n", "\n\n": "\n"}.items():
         while key in result:

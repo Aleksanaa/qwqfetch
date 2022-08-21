@@ -1,7 +1,7 @@
 from ...tools.command import RunCommand
 
 
-def get_font():
+def get_font() -> str:
     default_profile = (
         RunCommand("gsettings get org.gnome.Terminal.ProfilesList default")
         .read().strip("' \n")

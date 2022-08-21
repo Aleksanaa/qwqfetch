@@ -3,7 +3,7 @@ from .basic_system_info import *
 from .default_result_list import default_result
 
 
-def get_result_dict():
+def get_result_dict() -> dict[str,str]:
     globals._init()
 
     globals.set(
@@ -21,7 +21,7 @@ def get_result_dict():
     )
 
 
-def get_result():
+def get_result() -> str:
     result_dict = get_result_dict()
     result = f"{result_dict.pop('USERNAME')}@{result_dict.pop('HOSTNAME')}\n"
     result += "-" * (len(result) - 1) + "\n"

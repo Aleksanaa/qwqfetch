@@ -2,7 +2,7 @@ from os.path import expanduser
 from ...tools import parse_info
 
 
-def get_font():
+def get_font() -> str:
     xfce4_config = f"{expanduser('~')}/.config/xfce4/terminal/terminalrc"
     needs = {"FontName": "font_name", "FontUseSystem": "use_system"}
     try:

@@ -2,14 +2,14 @@ from os import getpid
 from . import parse_proc
 
 
-def get_info(id):
+def get_info(id:str) -> tuple[str]:
     info_dict = parse_proc(f"/proc/{id}/status")[0]
     name = info_dict["Name"]
     parent = info_dict["PPid"]
     return name, parent
 
 
-def get():
+def get() -> list[str]:
     global parent_list
     try:
         if parent_list in globals:

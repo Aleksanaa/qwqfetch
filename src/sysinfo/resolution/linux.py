@@ -1,6 +1,6 @@
 from ...tools.command import RunCommand
 
-def get_from_xrandr():
+def get_from_xrandr() -> str:
     try:
         xrandr = RunCommand("xrandr --nograb --current").readlines()
         for line in xrandr:
@@ -12,7 +12,7 @@ def get_from_xrandr():
     return ""
 
 
-def get_from_xwininfo():
+def get_from_xwininfo() -> str:
     try:
         xwininfo = RunCommand("xwininfo -root").readlines()
         width, height = "", ""
@@ -28,7 +28,7 @@ def get_from_xwininfo():
     return ""
 
 
-def get_from_drm():
+def get_from_drm() -> str:
     try:
         drm_dir = "/sys/class/drm"
         from os import scandir

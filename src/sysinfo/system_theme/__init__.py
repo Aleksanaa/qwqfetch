@@ -4,7 +4,7 @@ from .gtk3 import gtk3
 from .qt import qt
 
 
-def read_cursor(theme_dict):
+def read_cursor(theme_dict: dict[str, str]) -> str:
     env = os.getenv("XCURSOR_THEME")
     if env and len(env) != 0:
         return env
@@ -18,7 +18,7 @@ def read_cursor(theme_dict):
     return ""
 
 
-def read(theme_type: str, theme_dict):
+def read(theme_type: str, theme_dict: dict[str, str]) -> str:
     result = ""
     result_dict = {}
     for t in theme_dict.keys():
@@ -35,7 +35,7 @@ def read(theme_type: str, theme_dict):
     return pretty(result.strip())
 
 
-def pretty(result):
+def pretty(result: str) -> str:
     replace_dict = {"GTK2/GTK3": "GTK2/3"}
     for key, val in replace_dict.items():
         result = result.replace(key, val)
@@ -47,7 +47,7 @@ theme_dict = {"GTK2": gtk2, "GTK3": gtk3, "Qt": qt}
 
 def get() -> dict[str, str]:
     return {
-        'Theme': read('theme', theme_dict),
-        'Icons': read('icons', theme_dict),
-        'Cursor': read_cursor(theme_dict)
+        "Theme": read("theme", theme_dict),
+        "Icons": read("icons", theme_dict),
+        "Cursor": read_cursor(theme_dict),
     }

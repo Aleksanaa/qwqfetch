@@ -3,7 +3,7 @@ from ... import globals
 sys_type = globals.get(["platform"])[0]["type"]
 
 
-def process_time(seconds):
+def process_time(seconds: int) -> str:
     time_str = ""
     time_format = {"day": 86400, "hour": 3600, "min": 60}
     for time_type in time_format.keys():
@@ -23,4 +23,4 @@ def get() -> dict[str, str]:
         from .windows import uptime_seconds
     else:
         uptime_seconds = 0
-    return {'Uptime': process_time(uptime_seconds)}
+    return {"Uptime": process_time(uptime_seconds)}

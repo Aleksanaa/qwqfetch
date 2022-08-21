@@ -1,7 +1,7 @@
 from os.path import expanduser
 
 
-def get_font():
+def get_font() -> str:
     home_path = expanduser("~")
     try:
         konsolerc = open(f"{home_path}/.config/konsolerc").readlines()

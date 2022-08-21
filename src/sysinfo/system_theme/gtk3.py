@@ -6,7 +6,7 @@ from ...tools.command import RunCommand
 gtk3 = {}
 
 
-def read_from_config():
+def read_from_config() -> None:
 
     file = f"{home}/.config/gtk-3.0/settings.ini"
     if os.path.exists(file):
@@ -24,7 +24,7 @@ def read_from_config():
             pass
 
 
-def get_gsettings_function():
+def get_gsettings_function() -> function:
     de_list = ["cinnamon", "gnome", "mate"]
     failed_list = []
 
