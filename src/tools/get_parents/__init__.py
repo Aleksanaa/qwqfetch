@@ -1,5 +1,5 @@
 from __future__ import annotations
-from os import getpid
+from os import getpid, getppid
 from ... import global_vars
 
 
@@ -9,18 +9,20 @@ def get() -> list[str]:
         from .linux import get_info
     elif sys_name == "Windows":
         from .windows import get_info
-
-    global parent_list
     try:
-        if parent_list in globals():
-            return parent_list
+        return global_vars.get(["parent_list"])[0]
+    except:
+        pass
+    try:
+        pid = getppid()
     except:
         pid = getpid()
-        parent_list = []
-        while pid != "0":
-            name, parent = get_info(pid)
-            if name == "":
-                break
-            parent_list.append(name)
-            pid = parent
-        return parent_list
+    parent_list = []
+    while pid != "0":
+        name, parent = get_info(pid)
+        if name == "":
+            break
+        parent_list.append(name)
+        pid = parent
+    global_vars.set({"parent_list": parent_list})
+    return parent_list
