@@ -14,5 +14,5 @@ def get() -> dict[str, str]:
         return {}
 
     return {
-        "Memory": f"{memory_used / 1024 ** 2:.1f} GiB / {memory_all / 1024 ** 2:.1f} GiB"
+        "Memory": f"{memory_used / 1024 ** 2:.2f} GiB / {memory_all / 1024 ** 2:.2f} GiB"
     }
