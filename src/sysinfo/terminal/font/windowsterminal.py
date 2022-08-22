@@ -5,7 +5,8 @@ from ....tools import get_parents
 
 
 def get_font() -> str:
-    font = "Cascadia Mono"
+    font_name = "Cascadia Mono"
+    font_size = "12"
     try:
         file = (
             list(
@@ -28,8 +29,12 @@ def get_font() -> str:
                 shell_name
             ):
                 if "font" in section.keys():
-                    font = section["font"]["face"]
+                    font = section["font"]
+                    if "face" in font:
+                        font_name = font["face"]
+                    if "size" in font:
+                        font_size = font["size"]
                     break
     except:
         pass
-    return font
+    return f"{font_name} {font_size}"
