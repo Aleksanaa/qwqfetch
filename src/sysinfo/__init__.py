@@ -41,9 +41,10 @@ def run_func(func):
 
 
 def run() -> dict[str, str]:
-    if threading:
-        with ThreadPool(cpu_count()) as p:
-            return_list: list[dict[str, str]] = p.map(run_func, functions_list)
-    else:
-        return_list: list[dict[str, str]] = [run_func(f) for f in functions_list]
+
+    return_list: list[dict[str, str]] = (
+        ThreadPool(cpu_count()).map(run_func, functions_list)
+        if threading
+        else [run_func(f) for f in functions_list]
+    )
     return {k: v for d in return_list for k, v in d.items()}

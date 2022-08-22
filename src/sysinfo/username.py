@@ -4,4 +4,10 @@ from platform import node
 
 
 def get() -> dict[str, str]:
-    return {'USERNAME': getlogin(), 'HOSTNAME': node()}
+    try:
+        username = getlogin()
+    except FileNotFoundError:
+        from getpass import getuser
+
+        username = getuser()
+    return {"USERNAME": username, "HOSTNAME": node()}
