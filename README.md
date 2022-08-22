@@ -36,11 +36,14 @@ Aleksana@DESKTOP-8D84B2M
 OS: Microsoft Windows 10 Pro AMD64
 Host: Intel Corporation 440BX Desktop Reference Platform
 Kernel: NT 10.0.19044
+Uptime: 5 hours, 1 min
+Shell: cmd 10.0.19044.1889
 Resolution: 2226x1205
 DE: Windows Shell
-CPU: AMD Ryzen 7 5800H (4) @ 3.218GHz
+Terminal: WindowsTerminal
+CPU: AMD Ryzen 7 5800H (4) @ 3.19 GHz
 GPU: VMware SVGA 3D
-Memory: 1817MiB / 4087MiB
+Memory: 2.5 GiB / 4.0 GiB
 ```
 
 The platforms we plan to support first are GNU/Linux (popular distributions that adheres to a set of specifications), Windows and MacOS. But if you need it, feel free to ask, and we'll try our best.(Note that we don't plan to support python<3.7)
