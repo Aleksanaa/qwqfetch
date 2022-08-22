@@ -19,14 +19,15 @@ def get_font() -> str:
         )
         config = loads(file)
 
-        for name in get_parents():
-            if name != "python.exe":
-                shell_name = name
+        parents_list = get_parents()
+        for current_name, next_name in zip(parents_list, parents_list[1:]):
+            if next_name == "WindowsTerminal.exe":
+                start_shell_name = current_name
                 break
 
         for section in config["profiles"]["list"]:
             if "commandline" in section.keys() and section["commandline"].endswith(
-                shell_name
+                start_shell_name
             ):
                 if "font" in section.keys():
                     font = section["font"]

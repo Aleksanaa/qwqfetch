@@ -13,7 +13,7 @@ if shell_name == "cmd":
         RunCommand("cmd -ver").readline().split("[")[1].split()[-1].strip("]").strip()
     )
 
-elif shell_name == "powershell" or "pwsh":
+elif shell_name == ("powershell" or "pwsh"):
     command = "pwsh -Command" if shell_name == "pwsh" else "powershell"
     shell_ver = ".".join(
         [
