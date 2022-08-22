@@ -65,7 +65,7 @@ def get_from_lsb_release():
             info_dict["full_name"] = lsb_release["full_name"]
         if lsb_release["version"] == "rolling":
             info_dict["no_version"] = True
-        elif lsb_release["version"] != "":
+        elif lsb_release["version"]:
             info_dict["version"] = lsb_release["version"]
 
     except IndexError:
@@ -84,10 +84,10 @@ for method in [get_from_distro, get_from_os_release, get_from_lsb_release]:
         break
     method()
 
-if info_dict["name"] == "":
+if not info_dict["name"]:
     info_dict["name"] = "Unknown Linux"
 
-if info_dict["full_name"] != "":
+if info_dict["full_name"]:
     info = info_dict["full_name"]
 else:
     info = ""

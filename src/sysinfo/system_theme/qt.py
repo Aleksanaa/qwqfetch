@@ -11,7 +11,7 @@ def read_kde_qt() -> dict[str, str]:
     commands = ["kf5-config", "kde4-config", "kde-config"]
     for command in commands:
         filepaths_raw = RunCommand(f"{command} --path config").read()
-        if filepaths_raw != "":
+        if filepaths_raw:
             filepaths = filepaths_raw.strip().split(":")
         break
     filepaths.reverse()

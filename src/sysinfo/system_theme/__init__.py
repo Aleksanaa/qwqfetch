@@ -12,7 +12,7 @@ def read_cursor(theme_dict: dict[str, str]) -> str:
     for gtk in ["GTK2", "GTK3"]:
         try:
             result = theme_dict[gtk]["cursor"]
-            if result != 0:
+            if result:
                 return result
         except KeyError:
             pass

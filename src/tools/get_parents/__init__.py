@@ -20,7 +20,7 @@ def get() -> list[str]:
     parent_list = []
     while pid != "0":
         name, parent = get_info(pid)
-        if name == "":
+        if not name:
             break
         parent_list.append(name)
         pid = parent

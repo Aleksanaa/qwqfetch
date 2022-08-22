@@ -10,7 +10,7 @@ def get() -> dict[str, str]:
         if "command" in pm.keys():
             output = RunCommand(pm["command"]).read()
             count = output.count("\n")
-            if count != 0:
+            if count:
                 packages_list[pm["name"]] = count
 
     packages = [f"{count} ({pm})" for pm, count in packages_list.items()]

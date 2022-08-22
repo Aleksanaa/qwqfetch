@@ -15,7 +15,7 @@ def get_font() -> str:
                 .read()
                 .strip("'")
             )
-            if font_name != "":
+            if font_name:
                 return font_name
 
         else:

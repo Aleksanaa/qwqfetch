@@ -19,7 +19,7 @@ from __future__ import annotations
 
 def parser(inputs: str, needs: dict[str, str], separator: str) -> dict[str, str]:
     satisfied = {key: "" for key in needs.values()}
-    for line in inputs.split("\n"):
+    for line in inputs.splitlines():
         for key, val in needs.items():
             if line.strip().startswith(key):
                 line_list = line.split(separator, 1)

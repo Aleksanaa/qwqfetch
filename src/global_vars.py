@@ -16,7 +16,7 @@ def merge(new_dict: dict, old_dict: dict):
                 and isinstance(old_dict[key], dict)
             ):
                 merge(new_dict[key], old_dict[key])
-            elif new_dict[key] != ("" or None):
+            elif new_dict[key]:
                 old_dict[key] = new_dict[key]
 
 

@@ -44,5 +44,5 @@ def get_from_drm() -> str:
 
 for method in [get_from_xrandr, get_from_xwininfo, get_from_drm]:
     resolution = method()
-    if resolution != "":
+    if resolution:
         break

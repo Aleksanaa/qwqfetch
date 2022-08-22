@@ -24,7 +24,7 @@ def get_result_dict() -> dict[str, str]:
                 sysinfo.run().items(), key=lambda pair: default_result.index(pair[0])
             )
         ).items()
-        if value != ""
+        if value
     }
 
 

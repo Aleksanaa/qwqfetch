@@ -9,7 +9,7 @@ def get_font() -> str:
         config: dict[str, str] = parse_info.parser(
             config, {"fontName": "font_name", "fontPointSize": "font_size"}, "="
         )
-        if config["font_name"] and config["font_size"] != "":
+        if config["font_name"]:
             return f"{config['font_name']} {config['font_size']}"
     except (FileNotFoundError, AttributeError):
         pass

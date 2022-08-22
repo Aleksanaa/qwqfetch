@@ -37,6 +37,6 @@ def get_from_glxinfo():
 gpu_info = ""
 for method in [get_from_lspci, get_from_glxinfo]:
     result = method()
-    if result != "":
+    if result:
         gpu_info = result
         break
