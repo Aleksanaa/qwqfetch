@@ -29,7 +29,7 @@ def get() -> dict[str, str]:
         from importlib import import_module
 
         name = name.strip("-").replace("-", "_").replace(" ", "").lower()
-        get_font = getattr(import_module(f".{name}", package=__package__), "get_font")
+        get_font = getattr(import_module(f".{name}", package=__name__), "get_font")
 
         result["Terminal Font"] = get_font().strip()
     except (ModuleNotFoundError, AttributeError):
