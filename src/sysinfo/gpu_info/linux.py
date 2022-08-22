@@ -1,8 +1,8 @@
 def get_from_lspci():
     try:
-        from os import popen
+        from ...tools import RunCommand
 
-        lspci = popen("lspci -mm").readlines()
+        lspci = RunCommand("lspci -mm").readlines()
         for line in lspci:
             if '"VGA compatible controller"' in line:
                 line_list = line.split('" "')
