@@ -25,7 +25,7 @@ modules_name_list = [
 
 
 functions_list = [
-    getattr(import_module(f".{module_name}", package=__package__), "get")
+    getattr(import_module(f".{module_name}", package=__name__), "get")
     for module_name in modules_name_list
 ]
 
