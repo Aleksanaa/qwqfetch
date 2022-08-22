@@ -2,8 +2,8 @@ from .command import RunCommand
 
 
 def process(command: str) -> str:
-    result = RunCommand(f"wmic {command}").read()
-    for key, val in {"  ": " ", "\n ": "\n", " \n": "\n", "\n\n": "\n"}.items():
-        while key in result:
-            result = result.replace(key, val)
-    return result.split("\n")[1]
+    result_raw = RunCommand(f"wmic {command}").read()
+    result = "\n".join(
+        [line.rstrip() for line in result_raw.splitlines() if line.strip()]
+    )
+    return result.splitlines()[1]
