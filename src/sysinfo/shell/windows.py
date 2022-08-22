@@ -26,3 +26,13 @@ elif shell_name == "powershell":
             if s
         ]
     )
+
+elif shell_name == "bash":
+    bash_path = "C:\\Program Files\\Git\\bin\\bash.exe"
+    from os import getenv
+
+    for path in getenv("PATH").split(";"):
+        if path.endswith("Git\\cmd"):
+            bash_path = path.replace("cmd", "bin\\bash.exe")
+            break
+    shell_ver = RunCommand(f"'{bash_path}' -c 'echo $BASH_VERSION'").read().strip()
