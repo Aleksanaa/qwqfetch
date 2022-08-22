@@ -1,4 +1,4 @@
-from ...tools.command import RunCommand
+from ....tools.command import RunCommand
 
 
 def get_font() -> str:

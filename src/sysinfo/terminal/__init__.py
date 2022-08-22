@@ -1,4 +1,5 @@
 from __future__ import annotations
+from .font import get_font_all
 
 
 def get() -> dict[str, str]:
@@ -25,14 +26,6 @@ def get() -> dict[str, str]:
                 result["Terminal"] = name
             break
 
-    try:
-        from importlib import import_module
-
-        name = name.strip("-").replace("-", "_").replace(" ", "").lower()
-        get_font = getattr(import_module(f".{name}", package=__name__), "get_font")
-
-        result["Terminal Font"] = get_font().strip()
-    except (ModuleNotFoundError, AttributeError):
-        pass
+    result["Terminal Font"] = get_font_all(name)
 
     return result

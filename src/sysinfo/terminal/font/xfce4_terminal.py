@@ -1,5 +1,5 @@
 from os.path import expanduser
-from ...tools import parse_info
+from ....tools import parse_info
 
 
 def get_font() -> str:
@@ -8,7 +8,7 @@ def get_font() -> str:
     try:
         results = parse_info.parser(open(xfce4_config).read(), needs, "=")
         if results["use_system"] == "TRUE":
-            from ...tools.command import run_command
+            from ....tools.command import run_command
 
             font_name = (
                 run_command("gsettings get org.gnome.desktop.interface monospace-font-name")

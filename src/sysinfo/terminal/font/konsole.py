@@ -1,5 +1,5 @@
 from os.path import expanduser
-from ...tools import parse_info
+from ....tools import parse_info
 
 
 def get_font() -> str:
