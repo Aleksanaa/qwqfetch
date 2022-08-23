@@ -1,6 +1,7 @@
 from __future__ import annotations
 from ... import global_vars
 from .unwanted_list import unwanted
+import re
 
 platform_info = global_vars.get(["platform"])[0]
 sys_name = platform_info["name"]
@@ -9,10 +10,7 @@ sys_arch = platform_info["arch"]
 
 def strip_name(name: str) -> str:
     for info in unwanted:
-        name = name.replace(info, "").strip()
-    # Remove existing frequency info
-    if " @ " in name:
-        name = name[: name.index(" @ ")]
+        name = re.sub(info,'',name).strip()
     while "  " in name:
         name = name.replace("  ", " ")
     return name
