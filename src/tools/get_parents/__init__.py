@@ -9,6 +9,8 @@ def get() -> list[str]:
         from .linux import get_info
     elif sys_name == "Windows":
         from .windows import get_info
+    elif sys_name == "Darwin":
+        from .macos import get_info
     try:
         return global_vars.get(["parent_list"])[0]
     except:

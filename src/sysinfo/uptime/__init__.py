@@ -1,7 +1,7 @@
 from __future__ import annotations
 from ... import global_vars
 
-sys_type = global_vars.get(["platform"])[0]["type"]
+sys_name = global_vars.get(["platform"])[0]["name"]
 
 
 def process_time(seconds: int) -> str:
@@ -18,10 +18,12 @@ def process_time(seconds: int) -> str:
 
 
 def get() -> dict[str, str]:
-    if sys_type == "posix":
+    if sys_name == "Linux":
         from .posix import uptime_seconds
-    elif sys_type == "nt":
+    elif sys_name == "Windows":
         from .windows import uptime_seconds
+    elif sys_name == "Darwin":
+        from .macos import uptime_seconds
     else:
         uptime_seconds = 0
     return {"Uptime": process_time(uptime_seconds)}

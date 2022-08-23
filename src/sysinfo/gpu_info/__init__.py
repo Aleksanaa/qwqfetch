@@ -12,6 +12,8 @@ def get() -> dict[str, str]:
         from .windows import gpu_info
     elif sys_name == "Linux":
         from .linux import gpu_info
+    elif sys_name == "Darwin":
+        from .macos import gpu_info
     else:
         gpu_info = ""
 

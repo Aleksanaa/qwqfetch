@@ -9,6 +9,8 @@ def get() -> dict[str, str]:
         from .linux import info
     elif sys_name == "Windows":
         from .windows import info
+    elif sys_name == "Darwin":
+        from .macos import info
     else:
         info = ""
     return {"Host": info}

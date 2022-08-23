@@ -12,6 +12,8 @@ def get() -> dict[str, str]:
         from .windows import resolution
     elif sys_name == "Linux":
         from .linux import resolution
+    elif sys_name == "Darwin":
+        from .macos import resolution
     else:
         resolution = ""
 

@@ -10,6 +10,8 @@ def get() -> dict[str, str]:
         from .linux import memory_used, memory_all
     elif sys_name == "Windows":
         from .windows import memory_used, memory_all
+    elif sys_name == "Darwin":
+        from .macos import memory_used, memory_all
     else:
         return {}
 

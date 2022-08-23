@@ -23,12 +23,13 @@ def get() -> dict[str, str]:
         from .linux import get_cpu_info
     elif sys_name == "Windows":
         from .windows import get_cpu_info
+    elif sys_name == "Darwin":
+        from .macos import get_cpu_info
     else:
         get_cpu_info = lambda: {}
 
     info = get_cpu_info()
     output = []
-
     # if you can prove to me you have more than one different processors,
     # and actually using it and have python >= 3.7 installed
     # I'll change this as soon as possible.

@@ -10,7 +10,7 @@ def get() -> dict[str, str]:
     if sys_name == "Linux":
         from .linux import info
     elif sys_name == "Darwin":
-        info = ""
+        from .macos import info
     elif sys_name == "Windows":
         from .windows import info
     else:
