@@ -8,7 +8,7 @@ from multiprocessing.pool import ThreadPool
 
 
 def solution(name: str, priority: int, condition: bool):
-    def append(function):
+    def append(function: FunctionType):
         @wraps(function)
         def solution_wrap(*args, **kwargs):
             if condition:
@@ -70,6 +70,6 @@ class Pool:
     def psolve(self, puzzles: list[Puzzle]):
         return ThreadPool(cpu_count()).map(self.solve, puzzles)
 
-
-pool = Pool()
+if "pool" not in globals():
+    pool = Pool()
 psolve = pool.psolve

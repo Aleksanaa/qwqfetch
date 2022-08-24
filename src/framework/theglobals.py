@@ -5,5 +5,5 @@ class Environ:
     def sets(self, new_pairs: dict):
         self.__dict__.update(new_pairs)
 
-
-environ = Environ()
+if "environ" not in globals():
+    environ = Environ()
