@@ -1,16 +1,9 @@
 from __future__ import annotations
-from ... import global_vars
+from src.framework import Puzzle
+from . import linux
 
-sys_name = global_vars.get(["platform"])[0]["name"]
-
+def process(output:list):
+    return {"Host":output[0]}
 
 def get() -> dict[str, str]:
-    if sys_name == "Linux":
-        from .linux import info
-    elif sys_name == "Windows":
-        from .windows import info
-    elif sys_name == "Darwin":
-        from .macos import info
-    else:
-        info = ""
-    return {"Host": info}
+    return Puzzle('get_board_name',processor=process).solve()

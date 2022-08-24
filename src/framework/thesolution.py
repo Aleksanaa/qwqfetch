@@ -2,7 +2,7 @@ from __future__ import annotations
 from types import FunctionType
 from copy import deepcopy
 from functools import wraps
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from os import cpu_count
 from multiprocessing.pool import ThreadPool
 
@@ -27,10 +27,11 @@ def solution(name: str, priority: int, condition: bool):
 class Puzzle:
 
     name: str
-    args: list = []
-    kwargs: dict = {}
-    checker: FunctionType = lambda v: True
-    processor: FunctionType = lambda v: v
+    args: list = field(default_factory=lambda: [])
+    kwargs: dict = field(default_factory=lambda: {})
+
+    checker: FunctionType = field(default_factory=lambda: lambda v: True)
+    processor: FunctionType = field(default_factory=lambda: lambda v: v)
 
     def solve(self) -> None:
         return pool.solve(self)
@@ -69,6 +70,7 @@ class Pool:
 
     def psolve(self, puzzles: list[Puzzle]):
         return ThreadPool(cpu_count()).map(self.solve, puzzles)
+
 
 if "pool" not in globals():
     pool = Pool()

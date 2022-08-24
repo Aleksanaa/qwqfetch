@@ -1,3 +1,6 @@
+from src.framework import *
+
+@solution("get_board_name",1,environ.is_linux)
 def get_dmi_info():
     dmi_path = "/sys/class/dmi/id/"
 
@@ -11,7 +14,4 @@ def get_dmi_info():
     except:
         board_vendor = ""
 
-    return f"{board_vendor} {board_name}"
-
-
-info = get_dmi_info().strip()
+    return f"{board_vendor} {board_name}".strip()

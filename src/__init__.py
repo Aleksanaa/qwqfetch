@@ -2,9 +2,11 @@ from __future__ import annotations
 from . import global_vars
 from .basic_system_info import *
 from .default_result_list import default_result
+from . import environ_init
 
 
 def get_result_dict() -> dict[str, str]:
+    environ_init.init()
     global_vars._init()
 
     global_vars.set(
