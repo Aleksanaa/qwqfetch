@@ -2,6 +2,7 @@ from __future__ import annotations
 from . import global_vars
 from .basic_system_info import *
 from .default_result_list import default_result
+from itertools import chain, repeat
 
 
 def get_result_dict() -> dict[str, str]:
@@ -28,10 +29,29 @@ def get_result_dict() -> dict[str, str]:
     }
 
 
-def get_result() -> str:
+def get_result(asc="") -> str:
+    from . import colors
+    """
+    returns:
+           |
+      asc  |  result
+           |
+    when distro is not specified, the result would be not colored.
+    """
+    asclines = asc.split("\n")
+    ascwidth = len(asclines[0])
     result_dict = get_result_dict()
-    result = f"{result_dict.pop('USERNAME')}@{result_dict.pop('HOSTNAME')}\n"
-    result += "-" * (len(result) - 1) + "\n"
+    # TODO: Longest Match Substring
+    acd = tuple(colors.color(x) for x in colors.set_text_colors(result_dict["OS"].split(" ")[0]))  # symtoms for ascii_color_dict
+    # trim strings
+    asclen, dictlen = len(asclines), len(result_dict)
+    if asclen < dictlen: ascs = chain(asclines, repeat(" "*ascwidth, dictlen - asclen))
+    else: ascs = iter(asclines)
+    # optimize io using f-string
+    header = f"{acd[0]}{result_dict.pop('USERNAME')}{colors.reset}@{acd[0]}{result_dict.pop('HOSTNAME')}{colors.reset}\n"
+    result = f"{next(ascs)}{header}{next(ascs)}{'-' * (len(header)-len(acd[0])*2-2*len(colors.reset)-1)}\n"
     for key, val in result_dict.items():
-        result += f"{key}: {val}\n"
+        result += f"{colors.reset}{acd[1]}{next(ascs)}{key}:{colors.reset} {val}\n"
+    for i in ascs:
+        result += i + "\n"  # no significance difference using str.join
     return result
