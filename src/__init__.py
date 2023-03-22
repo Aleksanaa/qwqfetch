@@ -43,15 +43,18 @@ def get_result(asc="") -> str:
     result_dict = get_result_dict()
     # TODO: Longest Match Substring
     acd = tuple(colors.color(x) for x in colors.set_text_colors(result_dict["OS"].split(" ")[0]))  # symtoms for ascii_color_dict
+    
     # trim strings
     asclen, dictlen = len(asclines), len(result_dict)
     if asclen < dictlen: ascs = chain(asclines, repeat(" "*ascwidth, dictlen - asclen))
     else: ascs = iter(asclines)
+
     # optimize io using f-string
-    header = f"{acd[0]}{result_dict.pop('USERNAME')}{colors.reset}@{acd[0]}{result_dict.pop('HOSTNAME')}{colors.reset}\n"
-    result = f"{next(ascs)}{header}{next(ascs)}{'-' * (len(header)-len(acd[0])*2-2*len(colors.reset)-1)}\n"
+    # TODO: optional bold text
+    header = f"{acd[0]}{colors.ascii_bold}{result_dict.pop('USERNAME')}{colors.reset}@{acd[0]}{colors.ascii_bold}{result_dict.pop('HOSTNAME')}{colors.reset}\n"
+    result = f"{next(ascs)}   {header}{next(ascs)}   {'-' * (len(header)-len(acd[0])*2-2*len(colors.reset)-2*len(colors.ascii_bold)-1)}\n"
     for key, val in result_dict.items():
-        result += f"{colors.reset}{acd[1]}{next(ascs)}{key}:{colors.reset} {val}\n"
+        result += f"{next(ascs)}   {acd[1]}{colors.ascii_bold}{key}:{colors.reset} {val}\n"
     for i in ascs:
         result += i + "\n"  # no significance difference using str.join
     return result
