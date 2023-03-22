@@ -40,5 +40,4 @@ def get_color_blocks() -> str:
     color_blocks += f'{reset}\n'
     for j in range(8, 16): color_blocks += f"\033[38;5;{j}m\033[48;5;{j}m " * 3
     color_blocks += reset
-    print("\033[5m15\033[25m")
     return color_blocks
