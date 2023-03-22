@@ -36,8 +36,10 @@ def get_color_blocks() -> str:
     """
     color_blocks = ""
     width = 3
-    for j in range(0, 8): color_blocks += f"\033[3{j}m\033[4{j}m " * 3
+    # not performance efficient enough
+    # color_blocks = ''.join((*(f'\033[3{j}m\033[4{j}m   ' for j in range(0, 8)), f'{reset}\n', *(f"\033[38;5;{j}m\033[48;5;{j}m   " for j in range(8, 16)), reset))
+    for j in range(0, 8): color_blocks += f"\033[3{j}m\033[4{j}m   "
     color_blocks += f'{reset}\n'
-    for j in range(8, 16): color_blocks += f"\033[38;5;{j}m\033[48;5;{j}m " * 3
+    for j in range(8, 16): color_blocks += f"\033[38;5;{j}m\033[48;5;{j}m   "
     color_blocks += reset
     return color_blocks
