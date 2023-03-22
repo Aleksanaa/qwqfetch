@@ -4,6 +4,7 @@ we don't need to provide that color.
 Maybe provide first part of set_text_colors() is enough.
 """
 from .distro_colors import colors
+
 reset = '\033[0m'
 ascii_bold = '\033[1m'
 def color(colornum: str) -> str:  # see neofetch color()
@@ -14,7 +15,7 @@ def color(colornum: str) -> str:  # see neofetch color()
     if colornum == "#": pass  # TODO
     if int(colornum) >= 0 and int(colornum) < 7:
         return f"{reset}\033[3{colornum}m"
-    return f"\03338;5;{colornum}m"
+    return f"\033[38;5;{colornum}m"
 
 def set_text_colors(distro: str) -> tuple:
     """
@@ -27,3 +28,17 @@ def set_text_colors(distro: str) -> tuple:
     ret = colors[distro][:2] 
     if len(ret) == 1: return (ret[0], ret[0])
     return ret
+
+def get_color_blocks() -> str:
+    """
+    return neofetch default color blocks.
+    for performance, it might be hardcoded in str in future.
+    """
+    color_blocks = ""
+    width = 3
+    for j in range(0, 8): color_blocks += f"\033[3{j}m\033[4{j}m " * 3
+    color_blocks += f'{reset}\n'
+    for j in range(8, 16): color_blocks += f"\033[38;5;{j}m\033[48;5;{j}m " * 3
+    color_blocks += reset
+    print("\033[5m15\033[25m")
+    return color_blocks
