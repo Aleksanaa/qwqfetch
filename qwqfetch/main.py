@@ -7,9 +7,9 @@ def main():
     if not (version_info[0] == 3 and version_info[1] >= 7):
         exit("Sorry, Please use Python3 > 3.7")
 
-    import src
+    import qwqfetch
 
-    print(src.get_result())
+    print(qwqfetch.get_result())
 
 
 if __name__ == "__main__":

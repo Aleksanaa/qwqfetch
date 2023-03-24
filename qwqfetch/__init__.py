@@ -41,14 +41,17 @@ def get_result(asc="") -> str:
     color_block = colors.get_color_blocks()
     result_dict = get_result_dict()
     # TODO: Longest Match Substring
-    acd = tuple(colors.color(x) for x in colors.set_text_colors(result_dict["OS"].split(" ")[0]))  # symtoms for ascii_color_dict
-    
+    acd = tuple(colors.color(x) for x in colors.set_text_colors(
+        result_dict["OS"].split(" ")[0]))  # symtoms for ascii_color_dict
+
     # preprocess asciiart & trim strings
     asclines = asc.split("\n")
     ascwidth = len(asclines[0])
     asclen, dictlen = len(asclines), len(result_dict) + 3
-    if asclen < dictlen: ascs = chain(asclines, repeat(" "*ascwidth, dictlen - asclen))
-    else: ascs = iter(asclines)
+    if asclen < dictlen:
+        ascs = chain(asclines, repeat(" "*ascwidth, dictlen - asclen))
+    else:
+        ascs = iter(asclines)
 
     # optimize io using f-string
     # TODO: optional bold text
@@ -62,3 +65,16 @@ def get_result(asc="") -> str:
     for i in ascs:
         result += i + "\n"  # no significance difference using str.join
     return result
+
+
+def main():
+    from sys import version_info, exit
+
+    if not (version_info[0] == 3 and version_info[1] >= 7):
+        exit("Sorry, Please use Python3 > 3.7")
+
+    print(get_result())
+
+
+if __name__ == "__main__":
+    main()
