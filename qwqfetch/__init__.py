@@ -4,6 +4,7 @@ from .basic_system_info import *
 from .default_result_list import default_result
 from .tools import colors
 from itertools import chain, repeat, zip_longest
+from re import sub
 
 
 def get_result_dict() -> dict[str, str]:
@@ -31,7 +32,11 @@ def get_result_dict() -> dict[str, str]:
 
 
 def get_result(colorize: bool = True) -> str:
-    colorizefunc = lambda x, y, z = True: x if colorize == False else colors.colorize_str_by_ansistr(x, y, z)
+    colorizefunc = (
+        lambda x, y, z=True: x
+        if colorize == False
+        else colors.colorize_str_by_ansistr(x, y, z)
+    )
     # the block below system info
     color_block = colors.get_color_blocks()
     result_dict = get_result_dict()
@@ -40,7 +45,8 @@ def get_result(colorize: bool = True) -> str:
         # as get_from_distro in qwqfetch is not working,
         # the `info` is the full name of the distro __in most cases__
         # so we simply get the distro name by rpartition(" ")[0]
-        colors.get_ansistr_bynum(x) for x in colors.get_distro_colornum(result_dict["OS"].rpartition(" ")[0])
+        colors.get_ansistr_bynum(x)
+        for x in colors.get_distro_colornum(result_dict["OS"].rpartition(" ")[0])
     )
     result = f"{result_dict.pop('USERNAME')}@{result_dict.pop('HOSTNAME')}"
     splitter = "-" * len(result) + "\n"
@@ -70,11 +76,14 @@ def get_ascres(asc: str = "") -> str:
     {ascline}{seperator}{sysinfo}\n
     """
     # vanilla qwqfetch prints lines without space, so here is a seperator
-    seperator = '   '
+    seperator = "   "
 
     # preprocess asciiart & trim strings
-    asclines = asc.splitlines() # list of ascii_distro per line
+    asclines = asc.splitlines()  # list of ascii_distro per line
     ascwidth = asclines[0]
+    # print(repr(ascwidth), len(ascwidth))
+    ascwidth = len(sub(r"\x1b\[[0-9;]+m", "", ascwidth)) * " "
+    # print(repr(ascwidth), len(ascwidth))
     asclen, dictlen = len(asclines), len(res)
     if asclen < dictlen:
         asclines = chain(asclines, repeat(ascwidth, dictlen - asclen))
